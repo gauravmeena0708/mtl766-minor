@@ -1,0 +1,136 @@
+\subsection*{Question 1}
+\textbf{Question:} Define a multivariate data sample and the sample mean vector.
+
+\textbf{Solution:}
+A multivariate data sample consists of $n$ observations on $p$ variables. We can represent this data as a $n \times p$ matrix $X$, where $x_{ij}$ is the $i$-th observation of the $j$-th variable.
+The sample mean vector is a $p \times 1$ vector $\bar{\mathbf{x}}$ where each element $\bar{x}_j$ is the average of the $n$ observations for the $j$-th variable.
+$$ \bar{\mathbf{x}} = \frac{1}{n} \sum_{i=1}^{n} \mathbf{x}_i $$
+
+\subsection*{Question 2}
+\textbf{Question:} Given the following dataset with 2 variables:
+$$ X = \begin{pmatrix} 2 & 3 \\ 4 & 5 \\ 6 & 7 \end{pmatrix} $$
+Calculate the sample mean vector.
+
+\textbf{Solution:}
+The sample mean vector $\bar{\mathbf{x}}$ is calculated as:
+$$ \bar{x}_1 = \frac{2+4+6}{3} = 4 $$
+$$ \bar{x}_2 = \frac{3+5+7}{3} = 5 $$
+So, the sample mean vector is:
+$$ \bar{\mathbf{x}} = \begin{pmatrix} 4 \\ 5 \end{pmatrix} $$
+
+\subsection*{Question 3}
+\textbf{Question:} Define the sample variance-covariance matrix and the sample correlation matrix. Explain the relationship between them.
+
+\textbf{Solution:}
+The sample variance-covariance matrix, denoted by $S$, is a $p \times p$ symmetric matrix where the diagonal elements $s_{jj}$ are the variances of each variable and the off-diagonal elements $s_{jk}$ are the covariances between variables $j$ and $k$.
+$$ S = \frac{1}{n-1} \sum_{i=1}^{n} (\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T $$
+The sample correlation matrix, $R$, is a $p \times p$ matrix where the elements $r_{jk}$ are the sample correlation coefficients between variables $j$ and $k$.
+$$ r_{jk} = \frac{s_{jk}}{\sqrt{s_{jj}}\sqrt{s_{kk}}} $$
+The relationship is $R = D^{-1/2} S D^{-1/2}$, where $D$ is a diagonal matrix of the variances from $S$.
+
+\subsection*{Question 4}
+\textbf{Question:} For the dataset in Question 2, calculate the sample variance-covariance matrix.
+
+\textbf{Solution:}
+First, we calculate the deviations from the mean:
+$$ X - \bar{\mathbf{x}} = \begin{pmatrix} 2-4 & 3-5 \\ 4-4 & 5-5 \\ 6-4 & 7-5 \end{pmatrix} = \begin{pmatrix} -2 & -2 \\ 0 & 0 \\ 2 & 2 \end{pmatrix} $$
+The sum of squared products matrix is:
+$$ (X - \bar{\mathbf{x}})^T (X - \bar{\mathbf{x}}) = \begin{pmatrix} (-2)^2+0^2+2^2 & (-2)(-2)+0(0)+2(2) \\ (-2)(-2)+0(0)+2(2) & (-2)^2+0^2+2^2 \end{pmatrix} = \begin{pmatrix} 8 & 8 \\ 8 & 8 \end{pmatrix} $$
+The variance-covariance matrix $S$ is this matrix divided by $n-1 = 2$:
+$$ S = \frac{1}{2} \begin{pmatrix} 8 & 8 \\ 8 & 8 \end{pmatrix} = \begin{pmatrix} 4 & 4 \\ 4 & 4 \end{pmatrix} $$
+
+\subsection*{Question 5}
+\textbf{Question:} From the result of Question 4, calculate the sample correlation matrix.
+
+\textbf{Solution:}
+We have $s_{11}=4$, $s_{22}=4$, and $s_{12}=4$.
+$$ r_{11} = r_{22} = 1 $$
+$$ r_{12} = \frac{s_{12}}{\sqrt{s_{11}s_{22}}} = \frac{4}{\sqrt{4 \cdot 4}} = \frac{4}{4} = 1 $$
+The correlation matrix is:
+$$ R = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} $$
+
+\subsection*{Question 6}
+\textbf{Question:} What is a feature space? How do you visualize a multivariate data sample in it?
+
+\textbf{Solution:}
+A feature space is a $p$-dimensional space where each dimension corresponds to one of the $p$ variables (features) of the dataset. Each observation $\mathbf{x}_i$ is represented as a point in this space. For $p=2$ or $p=3$, we can create a scatter plot of the $n$ points. For $p>3$, we can use techniques like scatter plot matrices to visualize pairs of variables.
+
+\subsection*{Question 7}
+\textbf{Question:} Define the Mahalanobis distance. How does it differ from the Euclidean distance?
+
+\textbf{Solution:}
+The Mahalanobis distance between two points $\mathbf{x}$ and $\mathbf{y}$ in a $p$-dimensional space with covariance matrix $S$ is:
+$$ D_M(\mathbf{x}, \mathbf{y}) = \sqrt{(\mathbf{x}-\mathbf{y})^T S^{-1} (\mathbf{x}-\mathbf{y})} $$
+It differs from Euclidean distance by accounting for the covariance among variables. It is scale-invariant and corrects for correlation.
+
+\subsection*{Question 8}
+\textbf{Question:} Given a mean vector $\bar{\mathbf{x}} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$, a covariance matrix $S = \begin{pmatrix} 1 & 0.5 \\ 0.5 & 1 \end{pmatrix}$, and a point $\mathbf{x}_0 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$, calculate the Mahalanobis distance from $\mathbf{x}_0$ to the mean.
+
+\textbf{Solution:}
+First, find the inverse of $S$:
+$$ S^{-1} = \frac{1}{1-0.25} \begin{pmatrix} 1 & -0.5 \\ -0.5 & 1 \end{pmatrix} = \frac{4}{3} \begin{pmatrix} 1 & -0.5 \\ -0.5 & 1 \end{pmatrix} $$
+The Mahalanobis distance is:
+$$ D_M^2 = (\mathbf{x}_0-\bar{\mathbf{x}})^T S^{-1} (\mathbf{x}_0-\bar{\mathbf{x}}) = \begin{pmatrix} 1 & 1 \end{pmatrix} \frac{4}{3} \begin{pmatrix} 1 & -0.5 \\ -0.5 & 1 \end{pmatrix} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = \frac{4}{3} \begin{pmatrix} 1 & 1 \end{pmatrix} \begin{pmatrix} 0.5 \\ 0.5 \end{pmatrix} = \frac{4}{3}(0.5+0.5) = \frac{4}{3} $$
+$$ D_M = \sqrt{4/3} \approx 1.1547 $$
+
+\subsection*{Question 9}
+\textbf{Question:} Describe the geometric shape of points that are at a constant statistical distance from the mean.
+
+\textbf{Solution:}
+The set of points $\mathbf{x}$ that are at a constant Mahalanobis distance $c$ from the mean vector $\bar{\mathbf{x}}$ forms an ellipsoid in the $p$-dimensional space. The equation for this ellipsoid is:
+$$ (\mathbf{x}-\bar{\mathbf{x}})^T S^{-1} (\mathbf{x}-\bar{\mathbf{x}}) = c^2 $$
+The center of the ellipsoid is $\bar{\mathbf{x}}$, and its axes are determined by the eigenvectors and eigenvalues of the covariance matrix $S$.
+
+\subsection*{Question 10}
+\textbf{Question:} Write down the equation for an ellipsoid of constant statistical distance for a 2-dimensional case with a diagonal covariance matrix $S = \begin{pmatrix} s_{11} & 0 \\ 0 & s_{22} \end{pmatrix}$.
+
+\textbf{Solution:}
+For a diagonal covariance matrix, $S^{-1} = \begin{pmatrix} 1/s_{11} & 0 \\ 0 & 1/s_{22} \end{pmatrix}$.
+The equation for the ellipsoid is:
+$$ (\mathbf{x}-\bar{\mathbf{x}})^T S^{-1} (\mathbf{x}-\bar{\mathbf{x}}) = \frac{(x_1-\bar{x}_1)^2}{s_{11}} + \frac{(x_2-\bar{x}_2)^2}{s_{22}} = c^2 $$
+This is the standard equation of an ellipse centered at $(\bar{x}_1, \bar{x}_2)$ with axes parallel to the coordinate axes.
+
+\subsection*{Question 11}
+\textbf{Question:} Define the total variance and the generalized variance. What does a generalized variance of zero imply?
+
+\textbf{Solution:}
+The total variance is the sum of the variances of all variables, which is the trace of the covariance matrix $S$.
+$$ \text{Total Variance} = \text{tr}(S) = \sum_{j=1}^{p} s_{jj} $$
+The generalized variance is the determinant of the covariance matrix $S$.
+$$ \text{Generalized Variance} = |S| $$
+A generalized variance of zero implies that the covariance matrix is singular, which means there is at least one linear dependency among the variables.
+
+\subsection*{Question 12}
+\textbf{Question:} Calculate the total variance and generalized variance for the covariance matrix from Question 4.
+
+\textbf{Solution:}
+The covariance matrix is $S = \begin{pmatrix} 4 & 4 \\ 4 & 4 \end{pmatrix}$.
+Total variance = tr(S) = 4 + 4 = 8.
+Generalized variance = |S| = (4)(4) - (4)(4) = 0.
+The zero generalized variance indicates that the variables are perfectly correlated.
+
+\subsection*{Question 13}
+\textbf{Question:} Show that the sample correlation matrix is symmetric and has 1s on the diagonal.
+
+\textbf{Solution:}
+The correlation coefficient $r_{jk} = \frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}$.
+Symmetry: $r_{kj} = \frac{s_{kj}}{\sqrt{s_{kk}s_{jj}}} = \frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}} = r_{jk}$ since $s_{kj}=s_{jk}$.
+Diagonal elements: $r_{jj} = \frac{s_{jj}}{\sqrt{s_{jj}s_{jj}}} = \frac{s_{jj}}{s_{jj}} = 1$.
+
+\subsection*{Question 14}
+\textbf{Question:} If a variable is added to a dataset, what happens to the dimensions of the sample mean vector and sample variance-covariance matrix?
+
+\textbf{Solution:}
+If we add a variable, the number of variables $p$ becomes $p+1$.
+The sample mean vector $\bar{\mathbf{x}}$ will have its dimension increase from $p \times 1$ to $(p+1) \times 1$.
+The sample variance-covariance matrix $S$ will have its dimensions increase from $p \times p$ to $(p+1) \times (p+1)$.
+
+\subsection*{Question 15}
+\textbf{Question:} Consider a dataset with 3 variables. The covariance matrix is given by:
+$$ S = \begin{pmatrix} 25 & -2 & 4 \\ -2 & 4 & 1 \\ 4 & 1 & 9 \end{pmatrix} $$
+Find the correlation between variable 1 and 3.
+
+\textbf{Solution:}
+We need to find $r_{13}$. We have $s_{13}=4$, $s_{11}=25$, and $s_{33}=9$.
+$$ r_{13} = \frac{s_{13}}{\sqrt{s_{11}s_{33}}} = \frac{4}{\sqrt{25 \cdot 9}} = \frac{4}{\sqrt{225}} = \frac{4}{15} \approx 0.2667 $$
+The correlation between variable 1 and 3 is approximately 0.2667.

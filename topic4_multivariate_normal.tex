@@ -1,0 +1,126 @@
+\subsection*{Question 1}
+\textbf{Question:} Write down the probability density function (pdf) of a $p$-variate normal distribution with mean vector $\boldsymbol{\mu}$ and covariance matrix $\Sigma$.
+
+\textbf{Solution:}
+The pdf for a random vector $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$ is:
+$$ f(\mathbf{x}) = \frac{1}{(2\pi)^{p/2} |\Sigma|^{1/2}} \exp\left(-\frac{1}{2} (\mathbf{x} - \boldsymbol{\mu})^T \Sigma^{-1} (\mathbf{x} - \boldsymbol{\mu})\right) $$
+This is valid for $\mathbf{x} \in \mathbb{R}^p$, and it requires that the covariance matrix $\Sigma$ be positive definite (and thus invertible).
+
+\subsection*{Question 2}
+\textbf{Question:} What are the main properties of the multivariate normal distribution? List at least three.
+
+\textbf{Solution:}
+1.  **Linear combinations are normal:** If $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$, then any linear combination $A\mathbf{X} + \mathbf{b}$ is also normally distributed.
+2.  **Marginal distributions are normal:** All subsets of the components of $\mathbf{X}$ have multivariate normal distributions.
+3.  **Zero covariance implies independence:** If two subsets of components of $\mathbf{X}$ have a zero covariance matrix, then they are statistically independent.
+4.  **Conditional distributions are normal:** The conditional distribution of one subset of components, given the values of another subset, is also multivariate normal.
+
+\subsection*{Question 3}
+\textbf{Question:} Let $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$ and let $A$ be a $q \times p$ matrix of constants. Show that the linear combination $A\mathbf{X}$ is also multivariate normal. What are its mean and covariance matrix?
+
+\textbf{Solution:}
+The resulting distribution of $\mathbf{Y} = A\mathbf{X}$ is multivariate normal. We can find its mean and covariance as follows:
+Mean:
+$$ E(\mathbf{Y}) = E(A\mathbf{X}) = A E(\mathbf{X}) = A\boldsymbol{\mu} $$
+Covariance:
+$$ \text{Cov}(\mathbf{Y}) = \text{Cov}(A\mathbf{X}) = A \text{Cov}(\mathbf{X}) A^T = A \Sigma A^T $$
+So, $\mathbf{Y} = A\mathbf{X} \sim N_q(A\boldsymbol{\mu}, A\Sigma A^T)$. A formal proof involves using moment generating functions or characteristic functions.
+
+\subsection*{Question 4}
+\textbf{Question:} Let $\mathbf{X} \sim N_2\left(\begin{pmatrix} 1 \\ 2 \end{pmatrix}, \begin{pmatrix} 4 & 1 \\ 1 & 9 \end{pmatrix}\right)$. Let $A = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$. Find the distribution of $A\mathbf{X}$.
+
+\textbf{Solution:}
+Let $\mathbf{Y} = A\mathbf{X}$. The distribution of $\mathbf{Y}$ is normal with mean $A\boldsymbol{\mu}$ and covariance $A\Sigma A^T$.
+$$ A\boldsymbol{\mu} = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} \begin{pmatrix} 1 \\ 2 \end{pmatrix} = \begin{pmatrix} 3 \\ -1 \end{pmatrix} $$
+$$ A\Sigma A^T = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} \begin{pmatrix} 4 & 1 \\ 1 & 9 \end{pmatrix} \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}^T = \begin{pmatrix} 5 & 10 \\ 3 & -8 \end{pmatrix} \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} = \begin{pmatrix} 15 & -5 \\ -5 & 11 \end{pmatrix} $$
+So, $A\mathbf{X} \sim N_2\left(\begin{pmatrix} 3 \\ -1 \end{pmatrix}, \begin{pmatrix} 15 & -5 \\ -5 & 11 \end{pmatrix}\right)$.
+
+\subsection*{Question 5}
+\textbf{Question:} Let $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$. If a subset of components of $\mathbf{X}$ has zero covariance with another subset, what does this imply about the independence of these subsets?
+
+\textbf{Solution:}
+For the multivariate normal distribution, zero covariance is a necessary and sufficient condition for independence. If we partition $\mathbf{X}$ into $\mathbf{X}_1$ and $\mathbf{X}_2$ and their cross-covariance $\Sigma_{12}$ is a zero matrix, then $\mathbf{X}_1$ and $\mathbf{X}_2$ are statistically independent.
+
+\subsection*{Question 6}
+\textbf{Question:} Let $\mathbf{X} = \begin{pmatrix} \mathbf{X}_1 \\ \mathbf{X}_2 \end{pmatrix}$ be a partitioned multivariate normal random vector with corresponding partitioned mean $\boldsymbol{\mu} = \begin{pmatrix} \boldsymbol{\mu}_1 \\ \boldsymbol{\mu}_2 \end{pmatrix}$ and covariance $\Sigma = \begin{pmatrix} \Sigma_{11} & \Sigma_{12} \\ \Sigma_{21} & \Sigma_{22} \end{pmatrix}$. What is the marginal distribution of $\mathbf{X}_1$?
+
+\textbf{Solution:}
+One of the key properties of the MVN is that its marginal distributions are also normal. The marginal distribution of $\mathbf{X}_1$ is obtained by simply taking the corresponding blocks of the mean vector and covariance matrix.
+$$ \mathbf{X}_1 \sim N_{p_1}(\boldsymbol{\mu}_1, \Sigma_{11}) $$
+where $p_1$ is the dimension of $\mathbf{X}_1$.
+
+\subsection*{Question 7}
+\textbf{Question:} Given $\mathbf{X} \sim N_3\left(\begin{pmatrix} 1 \\ 0 \\ -1 \end{pmatrix}, \begin{pmatrix} 5 & 2 & 1 \\ 2 & 4 & -1 \\ 1 & -1 & 3 \end{pmatrix}\right)$, find the marginal distribution of $\begin{pmatrix} X_1 \\ X_3 \end{pmatrix}$.
+
+\textbf{Solution:}
+We select the components corresponding to $X_1$ and $X_3$ from the mean vector and covariance matrix.
+Mean: $\boldsymbol{\mu}_{1,3} = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$.
+Covariance matrix: $\Sigma_{1,3} = \begin{pmatrix} 5 & 1 \\ 1 & 3 \end{pmatrix}$.
+So, $\begin{pmatrix} X_1 \\ X_3 \end{pmatrix} \sim N_2\left(\begin{pmatrix} 1 \\ -1 \end{pmatrix}, \begin{pmatrix} 5 & 1 \\ 1 & 3 \end{pmatrix}\right)$.
+
+\subsection*{Question 8}
+\textbf{Question:} State the formula for the conditional distribution of $\mathbf{X}_1$ given $\mathbf{X}_2 = \mathbf{x}_2$ for a partitioned multivariate normal vector.
+
+\textbf{Solution:}
+The conditional distribution of $\mathbf{X}_1$ given $\mathbf{X}_2 = \mathbf{x}_2$ is also multivariate normal, with:
+Mean: $E(\mathbf{X}_1 | \mathbf{X}_2=\mathbf{x}_2) = \boldsymbol{\mu}_1 + \Sigma_{12}\Sigma_{22}^{-1}(\mathbf{x}_2 - \boldsymbol{\mu}_2)$
+Covariance: $\text{Cov}(\mathbf{X}_1 | \mathbf{X}_2=\mathbf{x}_2) = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}$
+Note that the conditional covariance does not depend on the value of $\mathbf{x}_2$.
+
+\subsection*{Question 9}
+\textbf{Question:} Let $\mathbf{X} \sim N_2\left(\begin{pmatrix} 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 4 & 2 \\ 2 & 2 \end{pmatrix}\right)$. Find the conditional distribution of $X_1$ given $X_2 = 1$.
+
+\textbf{Solution:}
+Here, $\mathbf{X}_1=X_1$, $\mathbf{X}_2=X_2$, $\boldsymbol{\mu}_1=0, \boldsymbol{\mu}_2=0$, $\Sigma_{11}=4, \Sigma_{12}=2, \Sigma_{22}=2$.
+Conditional Mean: $E(X_1 | X_2=1) = \mu_1 + \Sigma_{12}\Sigma_{22}^{-1}(x_2 - \mu_2) = 0 + 2 \cdot (1/2) \cdot (1-0) = 1$.
+Conditional Variance: $\text{Var}(X_1 | X_2=1) = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21} = 4 - 2 \cdot (1/2) \cdot 2 = 4 - 2 = 2$.
+So, $(X_1 | X_2=1) \sim N(1, 2)$.
+
+\subsection*{Question 10}
+\textbf{Question:} What is the distribution of the quadratic form $(\mathbf{X} - \boldsymbol{\mu})^T \Sigma^{-1} (\mathbf{X} - \boldsymbol{\mu})$ when $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$?
+
+\textbf{Solution:}
+The quadratic form $(\mathbf{X} - \boldsymbol{\mu})^T \Sigma^{-1} (\mathbf{X} - \boldsymbol{\mu})$ follows a chi-square distribution with $p$ degrees of freedom.
+$$ (\mathbf{X} - \boldsymbol{\mu})^T \Sigma^{-1} (\mathbf{X} - \boldsymbol{\mu}) \sim \chi^2_p $$
+
+\subsection*{Question 11}
+\textbf{Question:} Explain how the result from Question 10 is used to construct a confidence ellipsoid for the population mean vector $\boldsymbol{\mu}$.
+
+\textbf{Solution:}
+From the central limit theorem, the sample mean $\bar{\mathbf{X}}$ is approximately $N_p(\boldsymbol{\mu}, \frac{1}{n}\Sigma)$.
+Thus, $n(\bar{\mathbf{X}} - \boldsymbol{\mu})^T S^{-1} (\bar{\mathbf{X}} - \boldsymbol{\mu})$ is approximately $\chi^2_p$ for large $n$.
+A $100(1-\alpha)\%$ confidence ellipsoid for $\boldsymbol{\mu}$ is the set of all $\boldsymbol{\mu}$ that satisfy:
+$$ n(\bar{\mathbf{x}} - \boldsymbol{\mu})^T S^{-1} (\bar{\mathbf{x}} - \boldsymbol{\mu}) \le \chi^2_{p, \alpha} $$
+where $\chi^2_{p, \alpha}$ is the upper $(100\alpha)$th percentile of the $\chi^2_p$ distribution.
+
+\subsection*{Question 12}
+\textbf{Question:} For a bivariate normal distribution ($p=2$), what is the equation for a 95% confidence ellipse for the mean vector $\boldsymbol{\mu}$? You can leave the answer in terms of the sample mean $\bar{\mathbf{x}}$, sample covariance $S$, and a chi-square critical value.
+
+\textbf{Solution:}
+The equation for a 95% confidence ellipse for $\boldsymbol{\mu}$ is given by the inequality:
+$$ n(\bar{\mathbf{x}} - \boldsymbol{\mu})^T S^{-1} (\bar{\mathbf{x}} - \boldsymbol{\mu}) \le \chi^2_{2, 0.05} $$
+where $n$ is the sample size, $\bar{\mathbf{x}}$ is the sample mean vector, $S$ is the sample covariance matrix, and $\chi^2_{2, 0.05} \approx 5.99$ is the critical value from a chi-square distribution with 2 degrees of freedom.
+
+\subsection*{Question 13}
+\textbf{Question:} Show that any linear combination of the components of a multivariate normal vector $\mathbf{X}$, say $\mathbf{a}^T\mathbf{X}$, follows a univariate normal distribution.
+
+\textbf{Solution:}
+This is a special case of the property in Question 3, where $A$ is a $1 \times p$ matrix (a row vector $\mathbf{a}^T$).
+Let $Y = \mathbf{a}^T\mathbf{X}$. The mean of $Y$ is $E(Y) = E(\mathbf{a}^T\mathbf{X}) = \mathbf{a}^T E(\mathbf{X}) = \mathbf{a}^T\boldsymbol{\mu}$.
+The variance of $Y$ is $\text{Var}(Y) = \text{Cov}(\mathbf{a}^T\mathbf{X}) = \mathbf{a}^T \text{Cov}(\mathbf{X}) \mathbf{a} = \mathbf{a}^T\Sigma\mathbf{a}$.
+Since $Y$ is a scalar, its distribution is univariate normal: $Y \sim N(\mathbf{a}^T\boldsymbol{\mu}, \mathbf{a}^T\Sigma\mathbf{a})$.
+
+\subsection*{Question 14}
+\textbf{Question:} If all marginal distributions of a random vector $\mathbf{X}$ are normal, is $\mathbf{X}$ necessarily multivariate normal? Explain.
+
+\textbf{Solution:}
+No. If $\mathbf{X}$ is multivariate normal, then all its marginals are normal. However, the converse is not true. It is possible to construct a joint distribution where the marginals are normal, but the joint distribution is not multivariate normal. A key feature of the MVN distribution is that the dependency structure is fully captured by the covariance matrix, which is not true for all distributions.
+
+\subsection*{Question 15}
+\textbf{Question:} Describe the shape and orientation of the contours of constant density for a multivariate normal distribution. What determines them?
+
+\textbf{Solution:}
+The contours of constant density for a multivariate normal distribution are ellipsoids.
+- The center of the ellipsoids is the mean vector $\boldsymbol{\mu}$.
+- The orientation of the ellipsoids is determined by the eigenvectors of the covariance matrix $\Sigma$. The eigenvectors are the principal axes of the ellipsoids.
+- The lengths of the axes are determined by the eigenvalues of $\Sigma$. Larger eigenvalues correspond to longer axes, indicating greater variance in the direction of the corresponding eigenvector.

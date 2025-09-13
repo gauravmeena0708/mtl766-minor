@@ -1,0 +1,120 @@
+\subsection*{Question 1}
+\textbf{Question:} For a random sample $\mathbf{X}_1, \dots, \mathbf{X}_n$ from a population with probability density function (pdf) $f(\mathbf{x} | \boldsymbol{\theta})$, write down the likelihood function $L(\boldsymbol{\theta})$.
+
+\textbf{Solution:}
+The likelihood function is the joint pdf of the observed data, viewed as a function of the parameters $\boldsymbol{\theta}$. Assuming the observations are independent and identically distributed, the likelihood function is:
+$$ L(\boldsymbol{\theta} | \mathbf{x}_1, \dots, \mathbf{x}_n) = \prod_{i=1}^n f(\mathbf{x}_i | \boldsymbol{\theta}) $$
+
+\subsection*{Question 2}
+\textbf{Question:} What is the principle of maximum likelihood estimation (MLE)?
+
+\textbf{Solution:}
+The principle of maximum likelihood estimation is to find the value of the parameter vector $\boldsymbol{\theta}$ that maximizes the likelihood function $L(\boldsymbol{\theta})$. This value, denoted $\hat{\boldsymbol{\theta}}$, is the one that makes the observed data most probable. In practice, it is often easier to maximize the log-likelihood function, $\ln L(\boldsymbol{\theta})$.
+
+\subsection*{Question 3}
+\textbf{Question:} For a random sample from $N_p(\boldsymbol{\mu}, \Sigma)$ with known $\Sigma$, derive the MLE for $\boldsymbol{\mu}$.
+
+\textbf{Solution:}
+The log-likelihood function (ignoring constants) is:
+$$ \ln L(\boldsymbol{\mu}) = -\frac{1}{2} \sum_{i=1}^n (\mathbf{x}_i - \boldsymbol{\mu})^T \Sigma^{-1} (\mathbf{x}_i - \boldsymbol{\mu}) $$
+To find the maximum, we take the derivative with respect to $\boldsymbol{\mu}$ and set it to zero.
+$$ \frac{\partial \ln L(\boldsymbol{\mu})}{\partial \boldsymbol{\mu}} = \sum_{i=1}^n \Sigma^{-1}(\mathbf{x}_i - \boldsymbol{\mu}) = \mathbf{0} $$
+$$ \Sigma^{-1} \sum_{i=1}^n (\mathbf{x}_i - \boldsymbol{\mu}) = \mathbf{0} $$
+$$ \sum \mathbf{x}_i - n\boldsymbol{\mu} = \mathbf{0} \implies n\boldsymbol{\mu} = \sum \mathbf{x}_i $$
+$$ \hat{\boldsymbol{\mu}} = \frac{1}{n} \sum \mathbf{x}_i = \bar{\mathbf{X}} $$
+So, the MLE for $\boldsymbol{\mu}$ is the sample mean vector $\bar{\mathbf{X}}$.
+
+\subsection*{Question 4}
+\textbf{Question:} For a random sample from $N_p(\boldsymbol{\mu}, \Sigma)$, the MLEs are $\hat{\boldsymbol{\mu}} = \bar{\mathbf{X}}$ and $\hat{\Sigma} = \frac{1}{n}\sum_{i=1}^n(\mathbf{X}_i-\bar{\mathbf{X}})(\mathbf{X}_i-\bar{\mathbf{X}})^T$. How does $\hat{\Sigma}$ relate to the sample covariance matrix $S$? Is $\hat{\Sigma}$ an unbiased estimator of $\Sigma$?
+
+\textbf{Solution:}
+The MLE for $\Sigma$ is $\hat{\Sigma} = \frac{1}{n}\sum(\mathbf{X}_i-\bar{\mathbf{X}})(\mathbf{X}_i-\bar{\mathbf{X}})^T$.
+The sample covariance matrix is $S = \frac{1}{n-1}\sum(\mathbf{X}_i-\bar{\mathbf{X}})(\mathbf{X}_i-\bar{\mathbf{X}})^T$.
+The relationship is $\hat{\Sigma} = \frac{n-1}{n}S$.
+The MLE $\hat{\Sigma}$ is a biased estimator of $\Sigma$. Its expectation is $E(\hat{\Sigma}) = \frac{n-1}{n}E(S) = \frac{n-1}{n}\Sigma$. The sample covariance matrix $S$ is the unbiased estimator.
+
+\subsection*{Question 5}
+\textbf{Question:} Define the Wishart distribution. What is its relationship to the multivariate normal distribution?
+
+\textbf{Solution:}
+The Wishart distribution is a multivariate generalization of the chi-square distribution. It is the distribution of the sample sum of squares and cross-products matrix for a sample from a multivariate normal population.
+If $\mathbf{X}_1, \dots, \mathbf{X}_n$ is a random sample from $N_p(\mathbf{0}, \Sigma)$, then the matrix $W = \sum_{i=1}^n \mathbf{X}_i \mathbf{X}_i^T$ follows a Wishart distribution with $n$ degrees of freedom, denoted $W \sim W_p(n, \Sigma)$.
+
+\subsection*{Question 6}
+\textbf{Question:} State two properties of the Wishart distribution.
+
+\textbf{Solution:}
+1.  **Additivity:** If $W_1 \sim W_p(n_1, \Sigma)$ and $W_2 \sim W_p(n_2, \Sigma)$ are independent, then $W_1 + W_2 \sim W_p(n_1+n_2, \Sigma)$.
+2.  **Expectation:** If $W \sim W_p(n, \Sigma)$, then its expected value is $E(W) = n\Sigma$.
+3.  **Transformation:** If $W \sim W_p(n, \Sigma)$ and $A$ is a $q \times p$ matrix, then $AWA^T \sim W_q(n, A\Sigma A^T)$.
+
+\subsection*{Question 7}
+\textbf{Question:} Let $W_1 \sim W_p(n_1, \Sigma)$ and $W_2 \sim W_p(n_2, \Sigma)$ be independent Wishart matrices. What is the distribution of $W_1 + W_2$?
+
+\textbf{Solution:}
+By the additivity property of the Wishart distribution, the sum of two independent Wishart matrices with the same scale matrix $\Sigma$ is also a Wishart matrix with degrees of freedom added.
+$$ W_1 + W_2 \sim W_p(n_1 + n_2, \Sigma) $$
+
+\subsection*{Question 8}
+\textbf{Question:} State the Central Limit Theorem for p-dimensional random vectors.
+
+\textbf{Solution:}
+Let $\mathbf{X}_1, \dots, \mathbf{X}_n$ be a random sample from a population with mean vector $\boldsymbol{\mu}$ and covariance matrix $\Sigma$. For large $n$, the sample mean vector $\bar{\mathbf{X}}$ is approximately normally distributed with mean $\boldsymbol{\mu}$ and covariance matrix $\frac{1}{n}\Sigma$.
+$$ \sqrt{n}(\bar{\mathbf{X}} - \boldsymbol{\mu}) \xrightarrow{d} N_p(\mathbf{0}, \Sigma) \quad \text{as} \ n \to \infty $$
+
+\subsection*{Question 9}
+\textbf{Question:} What is Hotelling's $T^2$ statistic used for? State the one-sample hypothesis test it is used for.
+
+\textbf{Solution:}
+Hotelling's $T^2$ statistic is a multivariate generalization of the Student's t-statistic. It is used for hypothesis testing on the mean vector(s) of one or more multivariate normal populations.
+The one-sample test is used to test the null hypothesis that the population mean vector $\boldsymbol{\mu}$ is equal to a specific vector $\boldsymbol{\mu}_0$.
+$$ H_0: \boldsymbol{\mu} = \boldsymbol{\mu}_0 \quad \text{vs.} \quad H_1: \boldsymbol{\mu} \neq \boldsymbol{\mu}_0 $$
+
+\subsection*{Question 10}
+\textbf{Question:} Define the one-sample Hotelling's $T^2$ statistic in terms of the sample mean, hypothesized mean, sample covariance matrix, and sample size.
+
+\textbf{Solution:}
+The one-sample Hotelling's $T^2$ statistic is defined as:
+$$ T^2 = n(\bar{\mathbf{X}} - \boldsymbol{\mu}_0)^T S^{-1} (\bar{\mathbf{X}} - \boldsymbol{\mu}_0) $$
+where $n$ is the sample size, $\bar{\mathbf{X}}$ is the sample mean vector, $\boldsymbol{\mu}_0$ is the hypothesized mean vector, and $S$ is the sample covariance matrix.
+
+\subsection*{Question 11}
+\textbf{Question:} How is Hotelling's $T^2$ statistic related to the F-distribution? This relationship is used to find critical values for the test.
+
+\textbf{Solution:}
+Under the null hypothesis $H_0: \boldsymbol{\mu} = \boldsymbol{\mu}_0$, the $T^2$ statistic follows a scaled F-distribution:
+$$ \frac{n-p}{p(n-1)} T^2 \sim F_{p, n-p} $$
+where $p$ is the number of variables and $n$ is the sample size. This allows us to find a critical value for the test using the F-distribution.
+
+\subsection*{Question 12}
+\textbf{Question:} A sample of size $n=20$ from a bivariate normal population ($p=2$) yields a $T^2$ statistic of 10.5. At a significance level of $\alpha=0.05$, would you reject the null hypothesis $H_0: \boldsymbol{\mu} = \boldsymbol{\mu}_0$? Assume $F_{2, 18, 0.05} = 3.55$.
+
+\textbf{Solution:}
+First, we find the critical value for the $T^2$ test.
+Critical Value = $\frac{p(n-1)}{n-p}F_{p, n-p, \alpha} = \frac{2(20-1)}{20-2}F_{2, 18, 0.05} = \frac{38}{18} \cdot 3.55 \approx 2.11 \cdot 3.55 \approx 7.49$.
+The rejection rule is to reject $H_0$ if the observed $T^2 > 7.49$.
+Since our observed statistic is $T^2 = 10.5$, which is greater than 7.49, we reject the null hypothesis.
+
+\subsection*{Question 13}
+\textbf{Question:} What is the two-sample Hotelling's $T^2$ test used for? State the null hypothesis.
+
+\textbf{Solution:}
+The two-sample Hotelling's $T^2$ test is used to determine if two population mean vectors are equal. It is a multivariate generalization of the two-sample t-test.
+The null hypothesis is:
+$$ H_0: \boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 \quad \text{vs.} \quad H_1: \boldsymbol{\mu}_1 \neq \boldsymbol{\mu}_2 $$
+
+\subsection*{Question 14}
+\textbf{Question:} What assumptions are required for the two-sample Hotelling's $T^2$ test to be valid?
+
+\textbf{Solution:}
+The main assumptions are:
+1.  The two samples are independent random samples from their respective populations.
+2.  Both populations are multivariate normal.
+3.  The covariance matrices of the two populations are equal ($\Sigma_1 = \Sigma_2$).
+
+\subsection*{Question 15}
+\textbf{Question:} How does Hotelling's $T^2$ statistic relate to the Mahalanobis distance?
+
+\textbf{Solution:}
+Hotelling's $T^2$ statistic is proportional to the squared Mahalanobis distance. Specifically, the one-sample $T^2$ is $n$ times the squared Mahalanobis distance between the sample mean vector $\bar{\mathbf{X}}$ and the hypothesized mean vector $\boldsymbol{\mu}_0$, using the sample covariance matrix $S$ to estimate the population covariance.
+$$ T^2 = n \cdot D_M^2(\bar{\mathbf{X}}, \boldsymbol{\mu}_0) $$
