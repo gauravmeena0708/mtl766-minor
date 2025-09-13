@@ -1,0 +1,135 @@
+\subsection*{Question 1}
+\textbf{Question:} Let $\mathbf{X}$ and $\mathbf{Y}$ be random vectors and $A$, $B$ be matrices of constants. State the property for the expectation of a linear combination of random vectors, $E(A\mathbf{X} + B\mathbf{Y})$.
+
+\textbf{Solution:}
+The expectation of a linear combination of random vectors is the linear combination of their expectations.
+$$ E(A\mathbf{X} + B\mathbf{Y}) = A E(\mathbf{X}) + B E(\mathbf{Y}) $$
+This property holds assuming the dimensions of the matrices and vectors are compatible for addition and multiplication.
+
+\subsection*{Question 2}
+\textbf{Question:} Let $\mathbf{X}$ be a $p \times 1$ random vector with mean $E(\mathbf{X}) = \boldsymbol{\mu}$. Let $A$ be a $q \times p$ matrix of constants and $\mathbf{b}$ be a $q \times 1$ vector of constants. Show that $E(A\mathbf{X} + \mathbf{b}) = A\boldsymbol{\mu} + \mathbf{b}$.
+
+\textbf{Solution:}
+Using the definition of expectation for a vector:
+$$ E(A\mathbf{X} + \mathbf{b}) = \int \dots \int (A\mathbf{x} + \mathbf{b}) f(\mathbf{x}) d\mathbf{x} $$
+where $f(\mathbf{x})$ is the joint pdf of $\mathbf{X}$.
+$$ = \int \dots \int A\mathbf{x} f(\mathbf{x}) d\mathbf{x} + \int \dots \int \mathbf{b} f(\mathbf{x}) d\mathbf{x} $$
+$$ = A \left( \int \dots \int \mathbf{x} f(\mathbf{x}) d\mathbf{x} \right) + \mathbf{b} \left( \int \dots \int f(\mathbf{x}) d\mathbf{x} \right) $$
+Since $\int \dots \int \mathbf{x} f(\mathbf{x}) d\mathbf{x} = E(\mathbf{X}) = \boldsymbol{\mu}$ and $\int \dots \int f(\mathbf{x}) d\mathbf{x} = 1$, we have:
+$$ E(A\mathbf{X} + \mathbf{b}) = A\boldsymbol{\mu} + \mathbf{b} $$
+
+\subsection*{Question 3}
+\textbf{Question:} Define the covariance matrix of a random vector $\mathbf{X}$ with mean $\boldsymbol{\mu}$.
+
+\textbf{Solution:}
+The covariance matrix of a random vector $\mathbf{X}$, denoted by $\Sigma$ or $\text{Cov}(\mathbf{X})$, is a $p \times p$ matrix defined as:
+$$ \Sigma = E[(\mathbf{X} - \boldsymbol{\mu})(\mathbf{X} - \boldsymbol{\mu})^T] $$
+The $(i, j)$-th element of $\Sigma$ is the covariance between $X_i$ and $X_j$, and the $(i, i)$-th element is the variance of $X_i$.
+
+\subsection*{Question 4}
+\textbf{Question:} Show that $\text{Cov}(\mathbf{X}) = E(\mathbf{X}\mathbf{X}^T) - \boldsymbol{\mu}\boldsymbol{\mu}^T$.
+
+\textbf{Solution:}
+Starting from the definition:
+$$ \Sigma = E[(\mathbf{X} - \boldsymbol{\mu})(\mathbf{X} - \boldsymbol{\mu})^T] $$
+$$ = E[\mathbf{X}\mathbf{X}^T - \mathbf{X}\boldsymbol{\mu}^T - \boldsymbol{\mu}\mathbf{X}^T + \boldsymbol{\mu}\boldsymbol{\mu}^T] $$
+Using the linearity of expectation:
+$$ = E(\mathbf{X}\mathbf{X}^T) - E(\mathbf{X}\boldsymbol{\mu}^T) - E(\boldsymbol{\mu}\mathbf{X}^T) + E(\boldsymbol{\mu}\boldsymbol{\mu}^T) $$
+Since $\boldsymbol{\mu}$ is a constant vector:
+$$ = E(\mathbf{X}\mathbf{X}^T) - E(\mathbf{X})\boldsymbol{\mu}^T - \boldsymbol{\mu}E(\mathbf{X}^T) + \boldsymbol{\mu}\boldsymbol{\mu}^T $$
+$$ = E(\mathbf{X}\mathbf{X}^T) - \boldsymbol{\mu}\boldsymbol{\mu}^T - \boldsymbol{\mu}\boldsymbol{\mu}^T + \boldsymbol{\mu}\boldsymbol{\mu}^T = E(\mathbf{X}\mathbf{X}^T) - \boldsymbol{\mu}\boldsymbol{\mu}^T $$
+
+\subsection*{Question 5}
+\textbf{Question:} Let a random vector $\mathbf{X}$ be partitioned into two sub-vectors $\mathbf{X} = \begin{pmatrix} \mathbf{X}_1 \\ \mathbf{X}_2 \end{pmatrix}$. Describe the structure of the mean vector $\boldsymbol{\mu}$ and the covariance matrix $\Sigma$ in terms of the sub-vectors.
+
+\textbf{Solution:}
+The mean vector $\boldsymbol{\mu}$ is partitioned similarly:
+$$ \boldsymbol{\mu} = E(\mathbf{X}) = \begin{pmatrix} E(\mathbf{X}_1) \\ E(\mathbf{X}_2) \end{pmatrix} = \begin{pmatrix} \boldsymbol{\mu}_1 \\ \boldsymbol{\mu}_2 \end{pmatrix} $$
+The covariance matrix $\Sigma$ is partitioned into blocks:
+$$ \Sigma = \begin{pmatrix} \Sigma_{11} & \Sigma_{12} \\ \Sigma_{21} & \Sigma_{22} \end{pmatrix} $$
+where $\Sigma_{11} = \text{Cov}(\mathbf{X}_1)$, $\Sigma_{22} = \text{Cov}(\mathbf{X}_2)$, and $\Sigma_{12} = \text{Cov}(\mathbf{X}_1, \mathbf{X}_2) = \Sigma_{21}^T$.
+
+\subsection*{Question 6}
+\textbf{Question:} Let a random vector $\mathbf{X} = (X_1, X_2, X_3)^T$ have a mean vector $\boldsymbol{\mu} = (2, 3, 5)^T$. Partition the vector into $\mathbf{X}_1 = (X_1, X_2)^T$ and $\mathbf{X}_2 = (X_3)$. What are the corresponding partitioned mean vectors $\boldsymbol{\mu}_1$ and $\boldsymbol{\mu}_2$?
+
+\textbf{Solution:}
+The partitioned mean vectors are simply the corresponding parts of the original mean vector:
+$$ \boldsymbol{\mu}_1 = E(\mathbf{X}_1) = \begin{pmatrix} 2 \\ 3 \end{pmatrix} $$
+$$ \boldsymbol{\mu}_2 = E(\mathbf{X}_2) = (5) $$
+
+\subsection*{Question 7}
+\textbf{Question:} Define statistical independence for two random vectors $\mathbf{X}$ and $\mathbf{Y}$. What does this imply about their joint probability density function?
+
+\textbf{Solution:}
+Two random vectors $\mathbf{X}$ and $\mathbf{Y}$ are statistically independent if their joint probability density function (pdf) can be factored into the product of their marginal pdfs.
+$$ f(\mathbf{x}, \mathbf{y}) = f_{\mathbf{X}}(\mathbf{x}) f_{\mathbf{Y}}(\mathbf{y}) $$
+for all values of $\mathbf{x}$ and $\mathbf{y}$.
+
+\subsection*{Question 8}
+\textbf{Question:} If two random vectors $\mathbf{X}$ and $\mathbf{Y}$ are independent, what can be said about their cross-covariance matrix, $\text{Cov}(\mathbf{X}, \mathbf{Y})$?
+
+\textbf{Solution:}
+If $\mathbf{X}$ and $\mathbf{Y}$ are independent, their cross-covariance matrix is a zero matrix.
+$$ \text{Cov}(\mathbf{X}, \mathbf{Y}) = E[(\mathbf{X} - \boldsymbol{\mu}_X)(\mathbf{Y} - \boldsymbol{\mu}_Y)^T] = \mathbf{0} $$
+
+\subsection*{Question 9}
+\textbf{Question:} If $\mathbf{X}$ and $\mathbf{Y}$ are independent random vectors, show that $\text{Cov}(\mathbf{X}, \mathbf{Y}) = \mathbf{0}$. Does the converse hold? Explain.
+
+\textbf{Solution:}
+If $\mathbf{X}$ and $\mathbf{Y}$ are independent, then $E(\mathbf{X}\mathbf{Y}^T) = E(\mathbf{X})E(\mathbf{Y}^T) = \boldsymbol{\mu}_X \boldsymbol{\mu}_Y^T$.
+$$ \text{Cov}(\mathbf{X}, \mathbf{Y}) = E(\mathbf{X}\mathbf{Y}^T) - \boldsymbol{\mu}_X \boldsymbol{\mu}_Y^T = \boldsymbol{\mu}_X \boldsymbol{\mu}_Y^T - \boldsymbol{\mu}_X \boldsymbol{\mu}_Y^T = \mathbf{0} $$
+The converse is not true in general. Zero covariance implies no linear relationship, but there could still be a non-linear relationship, meaning the vectors are not independent. The exception is for multivariate normal distributions, where zero covariance does imply independence.
+
+\subsection*{Question 10}
+\textbf{Question:} Consider a random sample $\mathbf{X}_1, \dots, \mathbf{X}_n$ from a population with mean $\boldsymbol{\mu}$ and covariance $\Sigma$. What is the expected value of the sample mean vector $\bar{\mathbf{X}}$?
+
+\textbf{Solution:}
+The expected value of the sample mean vector $\bar{\mathbf{X}} = \frac{1}{n}\sum_{i=1}^n \mathbf{X}_i$ is the population mean vector $\boldsymbol{\mu}$.
+$$ E(\bar{\mathbf{X}}) = \boldsymbol{\mu} $$
+
+\subsection*{Question 11}
+\textbf{Question:} Prove that $E(\bar{\mathbf{X}}) = \boldsymbol{\mu}$.
+
+\textbf{Solution:}
+Using the linearity of expectation:
+$$ E(\bar{\mathbf{X}}) = E\left(\frac{1}{n}\sum_{i=1}^n \mathbf{X}_i\right) = \frac{1}{n} E\left(\sum_{i=1}^n \mathbf{X}_i\right) = \frac{1}{n} \sum_{i=1}^n E(\mathbf{X}_i) $$
+Since each $\mathbf{X}_i$ is from the same population, $E(\mathbf{X}_i) = \boldsymbol{\mu}$ for all $i$.
+$$ E(\bar{\mathbf{X}}) = \frac{1}{n} \sum_{i=1}^n \boldsymbol{\mu} = \frac{1}{n} (n\boldsymbol{\mu}) = \boldsymbol{\mu} $$
+
+\subsection*{Question 12}
+\textbf{Question:} What is the covariance matrix of the sample mean vector, $\text{Cov}(\bar{\mathbf{X}})$?
+
+\textbf{Solution:}
+The covariance matrix of the sample mean vector $\bar{\mathbf{X}}$ is the population covariance matrix $\Sigma$ divided by the sample size $n$.
+$$ \text{Cov}(\bar{\mathbf{X}}) = \frac{1}{n}\Sigma $$
+
+\subsection*{Question 13}
+\textbf{Question:} Prove that $\text{Cov}(\bar{\mathbf{X}}) = \frac{1}{n}\Sigma$.
+
+\textbf{Solution:}
+$$ \text{Cov}(\bar{\mathbf{X}}) = \text{Cov}\left(\frac{1}{n}\sum_{i=1}^n \mathbf{X}_i\right) = \frac{1}{n^2} \text{Cov}\left(\sum_{i=1}^n \mathbf{X}_i\right) $$
+Since the observations are independent, the covariance of the sum is the sum of the covariances:
+$$ = \frac{1}{n^2} \sum_{i=1}^n \text{Cov}(\mathbf{X}_i) $$
+Since $\text{Cov}(\mathbf{X}_i) = \Sigma$ for all $i$:
+$$ = \frac{1}{n^2} (n\Sigma) = \frac{1}{n}\Sigma $$
+
+\subsection*{Question 14}
+\textbf{Question:} What is the expected value of the sample covariance matrix $S$?
+
+\textbf{Solution:}
+The sample covariance matrix $S = \frac{1}{n-1} \sum_{i=1}^n (\mathbf{X}_i - \bar{\mathbf{X}})(\mathbf{X}_i - \bar{\mathbf{X}})^T$ is an unbiased estimator of the population covariance matrix $\Sigma$. Therefore, its expected value is $\Sigma$.
+$$ E(S) = \Sigma $$
+
+\subsection*{Question 15}
+\textbf{Question:} Show that the sample covariance matrix $S$ is an unbiased estimator of the population covariance matrix $\Sigma$, i.e., $E(S) = \Sigma$.
+
+\textbf{Solution:}
+This proof is more involved. First, we write:
+$$ (n-1)S = \sum_{i=1}^n (\mathbf{X}_i - \bar{\mathbf{X}})(\mathbf{X}_i - \bar{\mathbf{X}})^T = \sum \mathbf{X}_i\mathbf{X}_i^T - n\bar{\mathbf{X}}\bar{\mathbf{X}}^T $$
+Taking the expectation:
+$$ (n-1)E(S) = \sum E(\mathbf{X}_i\mathbf{X}_i^T) - nE(\bar{\mathbf{X}}\bar{\mathbf{X}}^T) $$
+We know $E(\mathbf{X}_i\mathbf{X}_i^T) = \Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T$ and $E(\bar{\mathbf{X}}\bar{\mathbf{X}}^T) = \text{Cov}(\bar{\mathbf{X}}) + E(\bar{\mathbf{X}})E(\bar{\mathbf{X}})^T = \frac{1}{n}\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T$.
+$$ (n-1)E(S) = \sum_{i=1}^n (\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T) - n(\frac{1}{n}\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T) $$
+$$ = (n\Sigma + n\boldsymbol{\mu}\boldsymbol{\mu}^T) - (\Sigma + n\boldsymbol{\mu}\boldsymbol{\mu}^T) $$
+$$ = n\Sigma - \Sigma = (n-1)\Sigma $$
+Therefore, $E(S) = \Sigma$.

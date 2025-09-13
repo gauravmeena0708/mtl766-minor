@@ -1,0 +1,116 @@
+\subsection*{Question 1}
+\textbf{Question:} Explain the concept of a sample space in the context of multivariate analysis. How does it differ from the feature space?
+
+\textbf{Solution:}
+In multivariate analysis, the sample space is an $n$-dimensional space where $n$ is the number of observations. Each of the $p$ variables can be represented as a vector in this space. So, we have $p$ vectors in an $n$-dimensional space. This is in contrast to the feature space, which is a $p$-dimensional space where each of the $n$ observations is represented as a point.
+
+\subsection*{Question 2}
+\textbf{Question:} What is a vector projection? Provide the formula for projecting a vector $\mathbf{y}$ onto a vector $\mathbf{x}$.
+
+\textbf{Solution:}
+A vector projection of a vector $\mathbf{y}$ onto a vector $\mathbf{x}$ is the component of $\mathbf{y}$ that lies in the direction of $\mathbf{x}$. The formula is:
+$$ \text{proj}_{\mathbf{x}} \mathbf{y} = \frac{\mathbf{y}^T \mathbf{x}}{\mathbf{x}^T \mathbf{x}} \mathbf{x} $$
+This gives a vector in the direction of $\mathbf{x}$. The scalar value $\frac{\mathbf{y}^T \mathbf{x}}{\mathbf{x}^T \mathbf{x}}$ is the coordinate of the projection.
+
+\subsection*{Question 3}
+\textbf{Question:} Given vectors $\mathbf{y} = \begin{pmatrix} 3 \\ 4 \end{pmatrix}$ and $\mathbf{x} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$, find the projection of $\mathbf{y}$ onto $\mathbf{x}$.
+
+\textbf{Solution:}
+We use the formula for projection:
+$$ \mathbf{y}^T \mathbf{x} = (3)(1) + (4)(1) = 7 $$
+$$ \mathbf{x}^T \mathbf{x} = (1)^2 + (1)^2 = 2 $$
+$$ \text{proj}_{\mathbf{x}} \mathbf{y} = \frac{7}{2} \mathbf{x} = \frac{7}{2} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 3.5 \\ 3.5 \end{pmatrix} $$
+
+\subsection*{Question 4}
+\textbf{Question:} How can we interpret the length of a vector in Euclidean space? What does the squared length of a mean-centered vector represent?
+
+\textbf{Solution:}
+The length of a vector $\mathbf{x} = (x_1, ..., x_n)^T$ is given by $L_{\mathbf{x}} = \sqrt{\sum_{i=1}^n x_i^2}$.
+A mean-centered vector $\mathbf{d} = \mathbf{x} - \bar{x}\mathbf{1}$ has elements $d_i = x_i - \bar{x}$. The squared length of this vector is:
+$$ L_{\mathbf{d}}^2 = \sum_{i=1}^n (x_i - \bar{x})^2 $$
+This is $(n-1)$ times the sample variance of the variable $x$.
+
+\subsection*{Question 5}
+\textbf{Question:} Calculate the length of the vector $\mathbf{d} = \mathbf{y} - \bar{y}\mathbf{1}$, where $\mathbf{y} = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$ and $\mathbf{1} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$.
+
+\textbf{Solution:}
+First, calculate the mean $\bar{y} = (1+2+3)/3 = 2$.
+The mean-centered vector is:
+$$ \mathbf{d} = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix} - 2 \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} -1 \\ 0 \\ 1 \end{pmatrix} $$
+The length of $\mathbf{d}$ is:
+$$ L_{\mathbf{d}} = \sqrt{(-1)^2 + 0^2 + 1^2} = \sqrt{2} $$
+
+\subsection*{Question 6}
+\textbf{Question:} Define the cosine of the angle between two vectors. What do values of 1, 0, and -1 signify?
+
+\textbf{Solution:}
+The cosine of the angle $\theta$ between two vectors $\mathbf{x}$ and $\mathbf{y}$ is:
+$$ \cos(\theta) = \frac{\mathbf{x}^T \mathbf{y}}{\|\mathbf{x}\| \|\mathbf{y}\|} $$
+- $\cos(\theta) = 1$ means the vectors point in the same direction ($\theta=0^\circ$).
+- $\cos(\theta) = 0$ means the vectors are orthogonal ($\theta=90^\circ$).
+- $\cos(\theta) = -1$ means the vectors point in opposite directions ($\theta=180^\circ$).
+
+\subsection*{Question 7}
+\textbf{Question:} Find the cosine of the angle between the two vectors from Question 3, $\mathbf{y} = \begin{pmatrix} 3 \\ 4 \end{pmatrix}$ and $\mathbf{x} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$.
+
+\textbf{Solution:}
+$$ \mathbf{x}^T \mathbf{y} = 7 $$
+$$ \|\mathbf{x}\| = \sqrt{1^2+1^2} = \sqrt{2} $$
+$$ \|\mathbf{y}\| = \sqrt{3^2+4^2} = \sqrt{25} = 5 $$
+$$ \cos(\theta) = \frac{7}{5\sqrt{2}} \approx 0.9899 $$
+
+\subsection*{Question 8}
+\textbf{Question:} How does the concept of cosine angle relate to the sample correlation coefficient?
+
+\textbf{Solution:}
+The sample correlation coefficient $r$ between two variables $x$ and $y$ is the cosine of the angle between their mean-centered vectors in the $n$-dimensional sample space. If $\mathbf{d}_x = \mathbf{x} - \bar{x}\mathbf{1}$ and $\mathbf{d}_y = \mathbf{y} - \bar{y}\mathbf{1}$, then:
+$$ r_{xy} = \frac{\mathbf{d}_x^T \mathbf{d}_y}{\|\mathbf{d}_x\| \|\mathbf{d}_y\|} = \cos(\theta) $$
+
+\subsection*{Question 9}
+\textbf{Question:} Explain how a linear combination of variables can be viewed as a projection.
+
+\textbf{Solution:}
+Consider a linear combination of $p$ variables, $c_1 x_1 + ... + c_p x_p$. In the sample space, we have $p$ vectors $\mathbf{x}_1, ..., \mathbf{x}_p$. The linear combination forms a new vector $\mathbf{z} = c_1 \mathbf{x}_1 + ... + c_p \mathbf{x}_p$. This vector $\mathbf{z}$ lies in the subspace spanned by the original variable vectors. Each observation's value for this new variable, $z_i$, is its value on the new axis defined by the linear combination. This can be seen as a projection of the observation points onto this new axis.
+
+\subsection*{Question 10}
+\textbf{Question:} Project the first observation vector $\mathbf{x}_1 = \begin{pmatrix} 2 \\ 3 \end{pmatrix}$ from the feature space onto the vector $\mathbf{v} = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$.
+
+\textbf{Solution:}
+This is a projection in the feature space.
+$$ \mathbf{x}_1^T \mathbf{v} = (2)(1) + (3)(-1) = -1 $$
+$$ \mathbf{v}^T \mathbf{v} = (1)^2 + (-1)^2 = 2 $$
+$$ \text{proj}_{\mathbf{v}} \mathbf{x}_1 = \frac{-1}{2} \mathbf{v} = \begin{pmatrix} -0.5 \\ 0.5 \end{pmatrix} $$
+
+\subsection*{Question 11}
+\textbf{Question:} What is the geometric interpretation of the sample variance?
+
+\textbf{Solution:}
+Geometrically, the sample variance of a variable is proportional to the squared length of its mean-centered vector in the sample space. A larger variance means the vector is longer, indicating more spread in the data.
+$$ s_x^2 = \frac{1}{n-1} \sum (x_i - \bar{x})^2 = \frac{1}{n-1} \|\mathbf{x} - \bar{x}\mathbf{1}\|^2 $$
+
+\subsection*{Question 12}
+\textbf{Question:} What is the geometric interpretation of the sample covariance?
+
+\textbf{Solution:}
+The sample covariance between two variables $x$ and $y$ is proportional to the dot product of their mean-centered vectors.
+$$ s_{xy} = \frac{1}{n-1} (\mathbf{x} - \bar{x}\mathbf{1})^T (\mathbf{y} - \bar{y}\mathbf{1}) $$
+The sign of the covariance is determined by the angle between these vectors. If the angle is less than 90 degrees, the covariance is positive. If it's greater than 90 degrees, it's negative.
+
+\subsection*{Question 13}
+\textbf{Question:} Given two mean-centered vectors $\mathbf{d}_1 = \begin{pmatrix} -1 \\ 0 \\ 1 \end{pmatrix}$ and $\mathbf{d}_2 = \begin{pmatrix} -1 \\ 1 \\ 0 \end{pmatrix}$, calculate their dot product. What does this imply about their sample covariance?
+
+\textbf{Solution:}
+$$ \mathbf{d}_1^T \mathbf{d}_2 = (-1)(-1) + (0)(1) + (1)(0) = 1 $$
+Since the dot product is positive, the sample covariance between the two corresponding variables is positive. The sample covariance would be $1 / (n-1) = 1/2$.
+
+\subsection*{Question 14}
+\textbf{Question:} Describe how you would find a projection of a data set that maximizes the variance of the projected points.
+
+\textbf{Solution:}
+This is the core idea of Principal Component Analysis (PCA). We want to find a direction (a unit vector $\mathbf{a}$) such that when we project the data points onto this direction, the variance of the projected points is maximized. The projected values are given by $X\mathbf{a}$. The variance of these projected values is proportional to $\mathbf{a}^T S \mathbf{a}$, where $S$ is the covariance matrix. To maximize this quantity subject to $\|\mathbf{a}\|=1$, we find the eigenvector of $S$ corresponding to the largest eigenvalue. This eigenvector is the direction of maximum variance.
+
+\subsection*{Question 15}
+\textbf{Question:} If two vectors representing two variables are orthogonal in the sample space after being mean-centered, what does this imply about their correlation?
+
+\textbf{Solution:}
+If the mean-centered vectors $\mathbf{d}_x$ and $\mathbf{d}_y$ are orthogonal, their dot product is zero: $\mathbf{d}_x^T \mathbf{d}_y = 0$. Since the sample correlation is the cosine of the angle between these vectors, and the angle is 90 degrees, the correlation is $\cos(90^\circ) = 0$. This means the two variables are uncorrelated.
