@@ -118,3 +118,102 @@ The main assumptions are:
 \textbf{Solution:}
 Hotelling's $T^2$ statistic is proportional to the squared Mahalanobis distance. Specifically, the one-sample $T^2$ is $n$ times the squared Mahalanobis distance between the sample mean vector $\bar{\mathbf{X}}$ and the hypothesized mean vector $\boldsymbol{\mu}_0$, using the sample covariance matrix $S$ to estimate the population covariance.
 $$ T^2 = n \cdot D_M^2(\bar{\mathbf{X}}, \boldsymbol{\mu}_0) $$
+
+\subsection*{Question 16}
+\textbf{Question:} For a random sample from a $N_p(\boldsymbol{\mu}, \Sigma)$ population, derive the likelihood ratio test (LRT) for the hypothesis $H_0: \boldsymbol{\mu} = \boldsymbol{\mu}_0$ vs $H_1: \boldsymbol{\mu} \neq \boldsymbol{\mu}_0$, with $\Sigma$ unknown. Show that the LRT statistic is a monotonic function of Hotelling's $T^2$ statistic.
+
+\textbf{Solution:}
+The likelihood ratio is $\Lambda = \frac{\sup_{\Sigma} L(\boldsymbol{\mu}_0, \Sigma)}{\sup_{\boldsymbol{\mu}, \Sigma} L(\boldsymbol{\mu}, \Sigma)}$.
+The denominator is the unrestricted maximum of the likelihood. The MLEs are $\hat{\boldsymbol{\mu}} = \bar{\mathbf{X}}$ and $\hat{\Sigma} = \frac{1}{n}\sum(\mathbf{X}_i-\bar{\mathbf{X}})(\mathbf{X}_i-\bar{\mathbf{X}})^T$. The maximized likelihood is $L(\hat{\boldsymbol{\mu}}, \hat{\Sigma}) \propto |\hat{\Sigma}|^{-n/2} e^{-np/2}$.
+The numerator is the maximum under $H_0$. The MLE for $\Sigma$ under $H_0$ is $\hat{\Sigma}_0 = \frac{1}{n}\sum(\mathbf{X}_i-\boldsymbol{\mu}_0)(\mathbf{X}_i-\boldsymbol{\mu}_0)^T$. The maximized likelihood is $L(\boldsymbol{\mu}_0, \hat{\Sigma}_0) \propto |\hat{\Sigma}_0|^{-n/2} e^{-np/2}$.
+The LRT statistic is $\Lambda = \left(\frac{|\hat{\Sigma}|}{|\hat{\Sigma}_0|}\right)^{n/2}$. We reject $H_0$ for small values of $\Lambda$.
+Let $A = n\hat{\Sigma} = \sum(\mathbf{X}_i-\bar{\mathbf{X}})(\mathbf{X}_i-\bar{\mathbf{X}})^T$ and $A_0 = n\hat{\Sigma}_0 = \sum(\mathbf{X}_i-\boldsymbol{\mu}_0)(\mathbf{X}_i-\boldsymbol{\mu}_0)^T$.
+We can write $A_0 = A + n(\bar{\mathbf{X}}-\boldsymbol{\mu}_0)(\bar{\mathbf{X}}-\boldsymbol{\mu}_0)^T$.
+Using the identity $|A+\mathbf{u}\mathbf{v}^T| = |A|(1 + \mathbf{v}^T A^{-1} \mathbf{u})$, we have:
+$$ |A_0| = |A|(1 + n(\bar{\mathbf{X}}-\boldsymbol{\mu}_0)^T A^{-1} (\bar{\mathbf{X}}-\boldsymbol{\mu}_0)) $$
+$$ \frac{|\hat{\Sigma}_0|}{|\hat{\Sigma}|} = \frac{|A_0|}{|A|} = 1 + n(\bar{\mathbf{X}}-\boldsymbol{\mu}_0)^T (n\hat{\Sigma})^{-1} (\bar{\mathbf{X}}-\boldsymbol{\mu}_0) = 1 + (\bar{\mathbf{X}}-\boldsymbol{\mu}_0)^T \hat{\Sigma}^{-1} (\bar{\mathbf{X}}-\boldsymbol{\mu}_0) $$
+Since $\hat{\Sigma} = \frac{n-1}{n} S$, we have $\hat{\Sigma}^{-1} = \frac{n}{n-1} S^{-1}$.
+$$ \frac{|\hat{\Sigma}_0|}{|\hat{\Sigma}|} = 1 + \frac{n}{n-1}(\bar{\mathbf{X}}-\boldsymbol{\mu}_0)^T S^{-1} (\bar{\mathbf{X}}-\boldsymbol{\mu}_0) = 1 + \frac{T^2}{n-1} $$
+where $T^2 = n(\bar{\mathbf{X}}-\boldsymbol{\mu}_0)^T S^{-1} (\bar{\mathbf{X}}-\boldsymbol{\mu}_0)$.
+So, $\Lambda^{2/n} = \frac{|\hat{\Sigma}|}{|\hat{\Sigma}_0|} = \left(1 + \frac{T^2}{n-1}\right)^{-1}$.
+Since $\Lambda^{2/n}$ is a decreasing function of $T^2$, rejecting $H_0$ for small $\Lambda$ is equivalent to rejecting for large $T^2$.
+
+\subsection*{Question 17}
+\textbf{Question:} Compare the Mean Squared Error (MSE) of the MLE for variance, $\hat{\sigma}^2 = \frac{1}{n}\sum(X_i-\bar{X})^2$, and the sample variance, $s^2 = \frac{1}{n-1}\sum(X_i-\bar{X})^2$, for a univariate normal sample. Which estimator is preferred in terms of MSE?
+
+\textbf{Solution:}
+Let $W = \sum(X_i-\bar{X})^2$. Under normality, $\frac{W}{\sigma^2} \sim \chi^2_{n-1}$.
+The MSE of an estimator $\tilde{\theta}$ is $\text{MSE}(\tilde{\theta}) = \text{Var}(\tilde{\theta}) + (\text{Bias}(\tilde{\theta}))^2$.
+For $s^2 = \frac{W}{n-1}$: It is unbiased, so Bias is 0.
+$\text{Var}(s^2) = \text{Var}(\frac{\sigma^2}{n-1} \frac{W}{\sigma^2}) = \frac{\sigma^4}{(n-1)^2} \text{Var}(\chi^2_{n-1}) = \frac{\sigma^4}{(n-1)^2} (2(n-1)) = \frac{2\sigma^4}{n-1}$.
+So, $\text{MSE}(s^2) = \frac{2\sigma^4}{n-1}$.
+
+For $\hat{\sigma}^2 = \frac{W}{n} = \frac{n-1}{n}s^2$:
+$\text{Bias}(\hat{\sigma}^2) = E[\hat{\sigma}^2] - \sigma^2 = E[\frac{n-1}{n}s^2] - \sigma^2 = \frac{n-1}{n}\sigma^2 - \sigma^2 = -\frac{1}{n}\sigma^2$.
+$\text{Var}(\hat{\sigma}^2) = \text{Var}(\frac{n-1}{n}s^2) = (\frac{n-1}{n})^2 \text{Var}(s^2) = (\frac{n-1}{n})^2 \frac{2\sigma^4}{n-1} = \frac{2(n-1)\sigma^4}{n^2}$.
+$\text{MSE}(\hat{\sigma}^2) = \frac{2(n-1)\sigma^4}{n^2} + (-\frac{1}{n}\sigma^2)^2 = \frac{2(n-1)\sigma^4}{n^2} + \frac{\sigma^4}{n^2} = \frac{(2n-2+1)\sigma^4}{n^2} = \frac{(2n-1)\sigma^4}{n^2}$.
+
+Now compare $\text{MSE}(s^2) = \frac{2\sigma^4}{n-1}$ and $\text{MSE}(\hat{\sigma}^2) = \frac{(2n-1)\sigma^4}{n^2}$.
+We compare $\frac{2}{n-1}$ and $\frac{2n-1}{n^2}$.
+$2n^2$ vs $(n-1)(2n-1) = 2n^2 - 3n + 1$.
+$2n^2 > 2n^2 - 3n + 1$ for $n>1$.
+So $\frac{2}{n-1} > \frac{2n-1}{n^2}$.
+This means $\text{MSE}(s^2) > \text{MSE}(\hat{\sigma}^2)$. The MLE $\hat{\sigma}^2$ has a smaller MSE than the unbiased estimator $s^2$, even though it is biased. Therefore, in terms of MSE, the MLE is the preferred estimator.
+
+\subsection*{Question 18}
+\textbf{Question:} In the two-sample hypothesis test for $H_0: \boldsymbol{\mu}_1 = \boldsymbol{\mu}_2$, the standard Hotelling's $T^2$ test assumes $\Sigma_1 = \Sigma_2$. This is the multivariate analogue of the Behrens-Fisher problem when this assumption is violated. Propose a test statistic for the case where $\Sigma_1 \neq \Sigma_2$ and $n_1, n_2$ are large, and explain the difficulty in finding its exact distribution for small samples.
+
+\textbf{Solution:}
+When $\Sigma_1 \neq \Sigma_2$, we cannot use a pooled sample covariance matrix. Instead, we can construct a statistic that is analogous to the one-sample $T^2$.
+Let $\bar{\mathbf{X}}_1$ and $\bar{\mathbf{X}}_2$ be the sample means. The difference vector is $\mathbf{d} = \bar{\mathbf{X}}_1 - \bar{\mathbf{X}}_2$.
+Under $H_0$, $E[\mathbf{d}] = \mathbf{0}$.
+The covariance of $\mathbf{d}$ is $\text{Cov}(\mathbf{d}) = \text{Cov}(\bar{\mathbf{X}}_1) + \text{Cov}(\bar{\mathbf{X}}_2) = \frac{\Sigma_1}{n_1} + \frac{\Sigma_2}{n_2}$.
+We can estimate this covariance matrix using the sample covariance matrices $S_1$ and $S_2$: $\hat{\Sigma}_{\mathbf{d}} = \frac{S_1}{n_1} + \frac{S_2}{n_2}$.
+A reasonable test statistic is the squared Mahalanobis distance of $\mathbf{d}$ from $\mathbf{0}$:
+$$ T^2_{BF} = (\bar{\mathbf{X}}_1 - \bar{\mathbf{X}}_2)^T \left( \frac{S_1}{n_1} + \frac{S_2}{n_2} \right)^{-1} (\bar{\mathbf{X}}_1 - \bar{\mathbf{X}}_2) $$
+For large sample sizes ($n_1, n_2 \to \infty$), by the Central Limit Theorem, $(\bar{\mathbf{X}}_1 - \bar{\mathbf{X}}_2)$ is approximately normal, and $S_1 \to \Sigma_1, S_2 \to \Sigma_2$. Thus, $T^2_{BF}$ is approximately distributed as $\chi^2_p$.
+
+The difficulty for small samples is that the statistic does not follow an exact, tractable distribution. The sum of two Wishart matrices with different scale parameters ($\frac{\Sigma_1}{n_1}$ and $\frac{\Sigma_2}{n_2}$) does not have a known distribution. The denominator of the test statistic is not a simple Wishart matrix, so the ratio does not form a standard F-distribution. This is the essence of the Behrens-Fisher problem: finding an exact test when nuisance parameters (the variances/covariances) are unequal. Solutions typically involve approximations, such as Satterthwaite's approximation, to the degrees of freedom.
+
+\subsection*{Question 19}
+\textbf{Question:} For a sample from a $N_p(\boldsymbol{\mu}, \Sigma)$ population, derive the likelihood ratio test (LRT) for the sphericity hypothesis $H_0: \Sigma = \sigma^2 I$ for some unspecified $\sigma^2 > 0$, versus the general alternative $H_1: \Sigma$ is any positive definite matrix.
+
+\textbf{Solution:}
+The likelihood ratio is $\Lambda = \frac{\sup_{\boldsymbol{\mu}, \sigma^2} L(\boldsymbol{\mu}, \sigma^2 I)}{\sup_{\boldsymbol{\mu}, \Sigma} L(\boldsymbol{\mu}, \Sigma)}$.
+The denominator is the usual maximized likelihood, where $L_{max}(\text{unrestricted}) \propto |\hat{\Sigma}|^{-n/2}$, with $\hat{\Sigma} = \frac{1}{n}A$ and $A=\sum(\mathbf{X}_i-\bar{\mathbf{X}})(\mathbf{X}_i-\bar{\mathbf{X}})^T$.
+
+For the numerator, we must maximize the likelihood under the constraint $\Sigma = \sigma^2 I$.
+The likelihood function is $L(\boldsymbol{\mu}, \sigma^2) \propto (\sigma^2)^{-np/2} \exp(-\frac{1}{2\sigma^2}\sum(\mathbf{x}_i-\boldsymbol{\mu})^T(\mathbf{x}_i-\boldsymbol{\mu}))$.
+The MLE for $\boldsymbol{\mu}$ is still $\bar{\mathbf{X}}$. Substituting this in, we need to maximize $L(\bar{\mathbf{X}}, \sigma^2) \propto (\sigma^2)^{-np/2} \exp(-\frac{1}{2\sigma^2}\text{tr}(A))$.
+Taking the log and differentiating with respect to $\sigma^2$:
+$$ \ln L = -\frac{np}{2}\ln(\sigma^2) - \frac{\text{tr}(A)}{2\sigma^2} $$
+$$ \frac{\partial \ln L}{\partial \sigma^2} = -\frac{np}{2\sigma^2} + \frac{\text{tr}(A)}{2(\sigma^2)^2} = 0 $$
+$$ \implies \hat{\sigma}^2 = \frac{\text{tr}(A)}{np} = \frac{\text{tr}(\sum(\mathbf{X}_i-\bar{\mathbf{X}})(\mathbf{X}_i-\bar{\mathbf{X}})^T)}{np} = \frac{\text{tr}(\hat{\Sigma})}{p} $$
+The maximized likelihood under $H_0$ is $L_{max}(H_0) \propto (\hat{\sigma}^2)^{-np/2} e^{-np/2}$.
+The LRT statistic is:
+$$ \Lambda = \frac{L_{max}(H_0)}{L_{max}(\text{unrestricted})} = \frac{(\hat{\sigma}^2)^{-np/2}}{|\hat{\Sigma}|^{-n/2}} = \left( \frac{|\hat{\Sigma}|}{(\frac{\text{tr}(\hat{\Sigma})}{p})^p} \right)^{n/2} $$
+The statistic is a power of the ratio of the geometric mean of the eigenvalues of $\hat{\Sigma}$ (since $|\hat{\Sigma}|^{1/p} = (\prod \lambda_i)^{1/p}$) to their arithmetic mean (since $\text{tr}(\hat{\Sigma})/p = (\sum \lambda_i)/p$). This ratio is always less than or equal to 1, and equals 1 only if all eigenvalues are equal, which is the case under sphericity. We reject $H_0$ for small values of $\Lambda$.
+
+\subsection*{Question 20}
+\textbf{Question:} Discuss the concept of power for the one-sample Hotelling's $T^2$ test. How does the power depend on the non-centrality parameter, and how would you calculate the sample size needed to achieve a certain power (e.g., 80\%) for a given effect size?
+
+\textbf{Solution:}
+The power of a hypothesis test is the probability of correctly rejecting the null hypothesis ($H_0$) when the alternative hypothesis ($H_1$) is true. For Hotelling's $T^2$ test, this is $P(\text{reject } H_0 | \boldsymbol{\mu} \neq \boldsymbol{\mu}_0)$.
+
+When $H_1$ is true, the test statistic $\frac{n-p}{p(n-1)} T^2$ follows a non-central F-distribution, $F_{p, n-p, \delta}$, where $\delta$ is the non-centrality parameter.
+The non-centrality parameter is given by:
+$$ \delta^2 = n(\boldsymbol{\mu} - \boldsymbol{\mu}_0)^T \Sigma^{-1} (\boldsymbol{\mu} - \boldsymbol{\mu}_0) $$
+This parameter measures the "distance" between the true mean $\boldsymbol{\mu}$ and the hypothesized mean $\boldsymbol{\mu}_0$, scaled by the covariance structure $\Sigma$ and the sample size $n$. This distance is the squared Mahalanobis distance between the true and hypothesized means.
+
+The power of the test is a function of $p$, $n$, the significance level $\alpha$, and the non-centrality parameter $\delta^2$. Specifically, power is an increasing function of $\delta^2$ and $n$. A larger distance between the true and hypothesized mean, smaller variance, or a larger sample size will all increase the power.
+
+To calculate the required sample size for a desired power (e.g., 0.80) at a given significance level ($\alpha=0.05$):
+1.  **Define the Effect Size:** First, one must specify a meaningful effect size to detect. This is the value of $(\boldsymbol{\mu} - \boldsymbol{\mu}_0)^T \Sigma^{-1} (\boldsymbol{\mu} - \boldsymbol{\mu}_0)$, which is the squared Mahalanobis distance $\Delta^2$. This requires domain knowledge and an estimate of $\Sigma$.
+2.  **Iterative Search or Power Charts:** The non-centrality parameter is $\delta^2 = n\Delta^2$. The power calculation involves finding the critical value from the central F-distribution, $F_{crit} = F_{p, n-p, \alpha}$, and then calculating $P(F_{p, n-p, n\Delta^2} > F_{crit})$. Since $n$ appears in the degrees of freedom and the non-centrality parameter, this equation cannot be solved directly for $n$.
+3.  **Procedure:** One must use an iterative approach:
+    - Guess a sample size $n$.
+    - Calculate the degrees of freedom ($p, n-p$) and the non-centrality parameter $\delta^2 = n\Delta^2$.
+    - Find the critical value $F_{crit}$ from the central F-distribution.
+    - Calculate the power using the non-central F-distribution's CDF.
+    - Adjust $n$ up or down and repeat until the desired power is achieved.
+    Alternatively, one can use statistical software or pre-computed power charts that solve this problem for various inputs.

@@ -133,3 +133,100 @@ $$ (n-1)E(S) = \sum_{i=1}^n (\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T) - n(\f
 $$ = (n\Sigma + n\boldsymbol{\mu}\boldsymbol{\mu}^T) - (\Sigma + n\boldsymbol{\mu}\boldsymbol{\mu}^T) $$
 $$ = n\Sigma - \Sigma = (n-1)\Sigma $$
 Therefore, $E(S) = \Sigma$.
+
+\subsection*{Question 16}
+\textbf{Question:} Prove the multivariate Cauchy-Schwarz inequality, which states that for any two $p \times 1$ random vectors $\mathbf{X}$ and $\mathbf{Y}$, we have $(E[\mathbf{X}^T\mathbf{Y}])^2 \le E[\mathbf{X}^T\mathbf{X}] E[\mathbf{Y}^T\mathbf{Y}]$.
+
+\textbf{Solution:}
+Consider the scalar random variable $Z(t) = (\mathbf{X} - t\mathbf{Y})^T(\mathbf{X} - t\mathbf{Y})$ for a real scalar $t$.
+Since the inner product of a vector with itself is always non-negative, we have $Z(t) \ge 0$.
+Therefore, its expectation must also be non-negative: $E[Z(t)] \ge 0$.
+Let's expand the expression for $Z(t)$:
+$$ Z(t) = \mathbf{X}^T\mathbf{X} - 2t\mathbf{X}^T\mathbf{Y} + t^2\mathbf{Y}^T\mathbf{Y} $$
+Now, take the expectation:
+$$ E[Z(t)] = E[\mathbf{X}^T\mathbf{X}] - 2tE[\mathbf{X}^T\mathbf{Y}] + t^2E[\mathbf{Y}^T\mathbf{Y}] \ge 0 $$
+This is a quadratic function of $t$ of the form $At^2 + Bt + C \ge 0$, where $A = E[\mathbf{Y}^T\mathbf{Y}]$, $B = -2E[\mathbf{X}^T\mathbf{Y}]$, and $C = E[\mathbf{X}^T\mathbf{X}]$.
+For a quadratic to be always non-negative, its discriminant must be less than or equal to zero: $B^2 - 4AC \le 0$.
+$$ (-2E[\mathbf{X}^T\mathbf{Y}])^2 - 4(E[\mathbf{Y}^T\mathbf{Y}])(E[\mathbf{X}^T\mathbf{X}]) \le 0 $$
+$$ 4(E[\mathbf{X}^T\mathbf{Y}])^2 \le 4 E[\mathbf{X}^T\mathbf{X}] E[\mathbf{Y}^T\mathbf{Y}] $$
+$$ (E[\mathbf{X}^T\mathbf{Y}])^2 \le E[\mathbf{X}^T\mathbf{X}] E[\mathbf{Y}^T\mathbf{Y}] $$
+This completes the proof.
+
+\subsection*{Question 17}
+\textbf{Question:} Let $\mathbf{X}$ be a $p \times 1$ random vector with mean $\boldsymbol{\mu}$ and covariance $\Sigma$. Find the $q \times p$ matrix $A$ that minimizes the mean squared error $E[\|\mathbf{Y} - \mathbf{b}\|^2]$ for a constant $q \times 1$ vector $\mathbf{b}$, where $\mathbf{Y} = A\mathbf{X}$.
+
+\textbf{Solution:}
+We want to minimize the expected squared Euclidean norm of the error vector $\mathbf{e} = A\mathbf{X} - \mathbf{b}$.
+$$ J(A) = E[\|A\mathbf{X} - \mathbf{b}\|^2] = E[(A\mathbf{X} - \mathbf{b})^T(A\mathbf{X} - \mathbf{b})] $$
+$$ = E[\mathbf{X}^T A^T A \mathbf{X} - 2\mathbf{b}^T A \mathbf{X} + \mathbf{b}^T\mathbf{b}] $$
+Using the linearity of expectation and the trace trick ($E[\mathbf{z}^T C \mathbf{z}] = \text{tr}(C E[\mathbf{z}\mathbf{z}^T])$):
+$$ J(A) = E[\text{tr}(\mathbf{X}^T A^T A \mathbf{X})] - 2\mathbf{b}^T A E[\mathbf{X}] + \mathbf{b}^T\mathbf{b} $$
+$$ = \text{tr}(A E[\mathbf{X}\mathbf{X}^T] A^T) - 2\mathbf{b}^T A \boldsymbol{\mu} + \mathbf{b}^T\mathbf{b} $$
+We know that $E[\mathbf{X}\mathbf{X}^T] = \Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T$.
+$$ J(A) = \text{tr}(A(\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T)A^T) - 2\mathbf{b}^T A \boldsymbol{\mu} + \mathbf{b}^T\mathbf{b} $$
+To find the minimum, we differentiate $J(A)$ with respect to $A$ and set the result to a zero matrix. Using standard matrix calculus results:
+$$ \frac{\partial J(A)}{\partial A} = 2A(\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T) - 2\mathbf{b}\boldsymbol{\mu}^T $$
+Setting this to $\mathbf{0}$:
+$$ 2A(\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T) = 2\mathbf{b}\boldsymbol{\mu}^T $$
+$$ A(\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T) = \mathbf{b}\boldsymbol{\mu}^T $$
+Assuming the matrix $(\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T)$ is invertible, the optimal matrix $A$ is:
+$$ A = \mathbf{b}\boldsymbol{\mu}^T (\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T)^{-1} $$
+This is the matrix for the optimal linear estimator of $\mathbf{b}$ based on $\mathbf{X}$.
+
+\subsection*{Question 18}
+\textbf{Question:} Let $\mathbf{X}_1, \dots, \mathbf{X}_n$ be a random sample from a population with mean $\boldsymbol{\mu}$ and covariance $\Sigma$. Show that the sample mean vector $\bar{\mathbf{X}}$ and the vector of deviations from the mean for any observation $i$, $(\mathbf{X}_i - \bar{\mathbf{X}})$, are uncorrelated.
+
+\textbf{Solution:}
+We need to show that $\text{Cov}(\bar{\mathbf{X}}, \mathbf{X}_i - \bar{\mathbf{X}}) = \mathbf{0}$.
+Let's compute the covariance:
+$$ \text{Cov}(\bar{\mathbf{X}}, \mathbf{X}_i - \bar{\mathbf{X}}) = E[\bar{\mathbf{X}}(\mathbf{X}_i - \bar{\mathbf{X}})^T] - E[\bar{\mathbf{X}}]E[(\mathbf{X}_i - \bar{\mathbf{X}})^T] $$
+We know $E[\bar{\mathbf{X}}] = \boldsymbol{\mu}$ and $E[\mathbf{X}_i - \bar{\mathbf{X}}] = E[\mathbf{X}_i] - E[\bar{\mathbf{X}}] = \boldsymbol{\mu} - \boldsymbol{\mu} = \mathbf{0}$.
+So the second term is zero. We only need to evaluate the first term:
+$$ E[\bar{\mathbf{X}}(\mathbf{X}_i - \bar{\mathbf{X}})^T] = E[\bar{\mathbf{X}}\mathbf{X}_i^T] - E[\bar{\mathbf{X}}\bar{\mathbf{X}}^T] $$
+For the first part of this expression:
+$$ E[\bar{\mathbf{X}}\mathbf{X}_i^T] = E\left[ \left(\frac{1}{n}\sum_{j=1}^n \mathbf{X}_j\right) \mathbf{X}_i^T \right] = \frac{1}{n} \sum_{j=1}^n E[\mathbf{X}_j \mathbf{X}_i^T] $$
+When $j=i$, $E[\mathbf{X}_i \mathbf{X}_i^T] = \text{Cov}(\mathbf{X}_i) + E[\mathbf{X}_i]E[\mathbf{X}_i]^T = \Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T$.
+When $j \neq i$, the observations are independent, so $E[\mathbf{X}_j \mathbf{X}_i^T] = E[\mathbf{X}_j]E[\mathbf{X}_i]^T = \boldsymbol{\mu}\boldsymbol{\mu}^T$.
+There is one $j=i$ term and $n-1$ terms where $j \neq i$.
+$$ E[\bar{\mathbf{X}}\mathbf{X}_i^T] = \frac{1}{n} [(\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T) + (n-1)\boldsymbol{\mu}\boldsymbol{\mu}^T] = \frac{1}{n}[\Sigma + n\boldsymbol{\mu}\boldsymbol{\mu}^T] = \frac{1}{n}\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T $$
+For the second part of the expression:
+$$ E[\bar{\mathbf{X}}\bar{\mathbf{X}}^T] = \text{Cov}(\bar{\mathbf{X}}) + E[\bar{\mathbf{X}}]E[\bar{\mathbf{X}}]^T = \frac{1}{n}\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T $$
+Combining them:
+$$ \text{Cov}(\bar{\mathbf{X}}, \mathbf{X}_i - \bar{\mathbf{X}}) = \left(\frac{1}{n}\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T\right) - \left(\frac{1}{n}\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T\right) = \mathbf{0} $$
+Thus, they are uncorrelated. This result is crucial for proving the independence of $\bar{\mathbf{X}}$ and the sample covariance matrix $S$ when the population is multivariate normal.
+
+\subsection*{Question 19}
+\textbf{Question:} Let $\mathbf{X}$ be a $p \times 1$ random vector with mean $\boldsymbol{\mu}$ and covariance matrix $\Sigma$. Let $A$ be a $p \times p$ symmetric matrix of constants. Show that the expected value of the quadratic form $\mathbf{X}^T A \mathbf{X}$ is given by $E[\mathbf{X}^T A \mathbf{X}] = \text{tr}(A\Sigma) + \boldsymbol{\mu}^T A \boldsymbol{\mu}$.
+
+\textbf{Solution:}
+We use the trace property that for a scalar $s$, $s = \text{tr}(s)$. So $\mathbf{X}^T A \mathbf{X}$ is a scalar.
+$$ E[\mathbf{X}^T A \mathbf{X}] = E[\text{tr}(\mathbf{X}^T A \mathbf{X})] $$
+Using the cyclic property of the trace, $\text{tr}(ABC) = \text{tr}(BCA)$:
+$$ E[\mathbf{X}^T A \mathbf{X}] = E[\text{tr}(A \mathbf{X}\mathbf{X}^T)] $$
+Since expectation and trace are linear operators, we can swap them:
+$$ = \text{tr}(E[A \mathbf{X}\mathbf{X}^T]) = \text{tr}(A E[\mathbf{X}\mathbf{X}^T]) $$
+We know that the second moment matrix $E[\mathbf{X}\mathbf{X}^T]$ is related to the covariance matrix $\Sigma$ by $E[\mathbf{X}\mathbf{X}^T] = \Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T$.
+Substituting this in:
+$$ E[\mathbf{X}^T A \mathbf{X}] = \text{tr}(A(\Sigma + \boldsymbol{\mu}\boldsymbol{\mu}^T)) = \text{tr}(A\Sigma + A\boldsymbol{\mu}\boldsymbol{\mu}^T) $$
+Using the linearity of the trace, $\text{tr}(B+C) = \text{tr}(B) + \text{tr}(C)$:
+$$ = \text{tr}(A\Sigma) + \text{tr}(A\boldsymbol{\mu}\boldsymbol{\mu}^T) $$
+For the second term, we use the cyclic property again: $\text{tr}(A\boldsymbol{\mu}\boldsymbol{\mu}^T) = \text{tr}(\boldsymbol{\mu}^T A \boldsymbol{\mu})$. Since $\boldsymbol{\mu}^T A \boldsymbol{\mu}$ is a scalar, its trace is itself.
+$$ = \text{tr}(A\Sigma) + \boldsymbol{\mu}^T A \boldsymbol{\mu} $$
+This is a fundamental result for the expectation of quadratic forms.
+
+\subsection*{Question 20}
+\textbf{Question:} Let $\Sigma$ be a partitioned positive definite matrix, such as a covariance matrix: $\Sigma = \begin{pmatrix} \Sigma_{11} & \Sigma_{12} \\ \Sigma_{21} & \Sigma_{22} \end{pmatrix}$. Prove that the determinant can be factored as $|\Sigma| = |\Sigma_{22}| |\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}|$. Also, provide a statistical interpretation of the matrix $\Sigma_{11.2} = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}$.
+
+\textbf{Solution:}
+We can prove this using block matrix decomposition. Consider the following block matrix multiplication:
+$$ \begin{pmatrix} I & -\Sigma_{12}\Sigma_{22}^{-1} \\ 0 & I \end{pmatrix} \begin{pmatrix} \Sigma_{11} & \Sigma_{12} \\ \Sigma_{21} & \Sigma_{22} \end{pmatrix} = \begin{pmatrix} \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21} & \mathbf{0} \\ \Sigma_{21} & \Sigma_{22} \end{pmatrix} $$
+Taking the determinant of both sides. The determinant of the first matrix on the left is 1 (since it's block triangular with identity matrices on the diagonal). The determinant of the matrix on the right is the product of the determinants of its diagonal blocks (since it's block triangular).
+$$ 1 \cdot |\Sigma| = |\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}| |\Sigma_{22}| $$
+This gives the desired result.
+
+\textbf{Statistical Interpretation:}
+The matrix $\Sigma_{11.2} = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}$ is the \textbf{conditional covariance matrix} of the random vector $\mathbf{X}_1$ given the random vector $\mathbf{X}_2$, assuming they are jointly normally distributed.
+- $\Sigma_{11}$ is the marginal covariance matrix of $\mathbf{X}_1$.
+- The term $\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}$ represents the reduction in the variance of $\mathbf{X}_1$ due to its linear relationship with $\mathbf{X}_2$. It is the covariance matrix of the part of $\mathbf{X}_1$ that can be predicted from $\mathbf{X}_2$.
+- Therefore, $\Sigma_{11.2}$ is the covariance matrix of the residuals of the regression of $\mathbf{X}_1$ on $\mathbf{X}_2$. It represents the variability in $\mathbf{X}_1$ that is "left over" after accounting for the information in $\mathbf{X}_2$.
+The determinant $|\Sigma_{11.2}|$ is the conditional generalized variance of $\mathbf{X}_1$ given $\mathbf{X}_2$. The formula shows that the total generalized variance $|\Sigma|$ can be factored into the generalized variance of one set of variables ($|\Sigma_{22}|$) and the conditional generalized variance of the other set given the first ($|\Sigma_{11.2}|$).

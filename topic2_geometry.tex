@@ -114,3 +114,76 @@ This is the core idea of Principal Component Analysis (PCA). We want to find a d
 
 \textbf{Solution:}
 If the mean-centered vectors $\mathbf{d}_x$ and $\mathbf{d}_y$ are orthogonal, their dot product is zero: $\mathbf{d}_x^T \mathbf{d}_y = 0$. Since the sample correlation is the cosine of the angle between these vectors, and the angle is 90 degrees, the correlation is $\cos(90^\circ) = 0$. This means the two variables are uncorrelated.
+
+\subsection*{Question 16}
+\textbf{Question:} Let $X_c$ be the $n \times p$ mean-centered data matrix. The projection of the $n$ observation points onto a p-dimensional vector $\mathbf{a}$ results in a new vector of data points $X_c \mathbf{a}$. Show that the sample variance of these projected points is given by $\mathbf{a}^T S \mathbf{a}$.
+
+\textbf{Solution:}
+The vector of projected points is $\mathbf{z} = X_c \mathbf{a}$. The elements of $\mathbf{z}$ are $z_i = (\mathbf{x}_i - \bar{\mathbf{x}})^T \mathbf{a}$.
+The mean of the projected points is:
+$$ \bar{z} = \frac{1}{n} \sum_{i=1}^n z_i = \frac{1}{n} \sum_{i=1}^n (\mathbf{x}_i - \bar{\mathbf{x}})^T \mathbf{a} = \left( \frac{1}{n} \sum_{i=1}^n (\mathbf{x}_i - \bar{\mathbf{x}})^T \right) \mathbf{a} = (\bar{\mathbf{x}} - \bar{\mathbf{x}})^T \mathbf{a} = 0 $$
+So the projected points are already centered around 0.
+The sample variance of the projected points is:
+$$ s_z^2 = \frac{1}{n-1} \sum_{i=1}^n (z_i - \bar{z})^2 = \frac{1}{n-1} \sum_{i=1}^n z_i^2 = \frac{1}{n-1} (X_c \mathbf{a})^T (X_c \mathbf{a}) $$
+$$ = \frac{1}{n-1} \mathbf{a}^T X_c^T X_c \mathbf{a} = \mathbf{a}^T \left( \frac{1}{n-1} X_c^T X_c \right) \mathbf{a} = \mathbf{a}^T S \mathbf{a} $$
+This result is fundamental to Principal Component Analysis (PCA), where we seek to find the direction $\mathbf{a}$ that maximizes this variance.
+
+\subsection*{Question 17}
+\textbf{Question:} Let $\mathbf{d}_j$ and $\mathbf{d}_k$ be two mean-centered data vectors (columns of $X_c$) for variables $j$ and $k$. The simple linear regression coefficient of variable $j$ on variable $k$ is given by $b_{jk} = \frac{\sum_{i=1}^n d_{ij}d_{ik}}{\sum_{i=1}^n d_{ik}^2} = \frac{\mathbf{d}_j^T \mathbf{d}_k}{\mathbf{d}_k^T \mathbf{d}_k}$. Interpret this geometrically in terms of projections in the $n$-dimensional sample space.
+
+\textbf{Solution:}
+In the $n$-dimensional sample space, the vectors $\mathbf{d}_j$ and $\mathbf{d}_k$ represent the two variables. The formula for the regression coefficient $b_{jk}$ is identical to the scalar component of the projection of vector $\mathbf{d}_j$ onto vector $\mathbf{d}_k$.
+The projection of $\mathbf{d}_j$ onto the line defined by $\mathbf{d}_k$ is:
+$$ \text{proj}_{\mathbf{d}_k} \mathbf{d}_j = \left( \frac{\mathbf{d}_j^T \mathbf{d}_k}{\mathbf{d}_k^T \mathbf{d}_k} \right) \mathbf{d}_k = b_{jk} \mathbf{d}_k $$
+Geometrically, this means we are finding the best fit for vector $\mathbf{d}_j$ in the one-dimensional subspace spanned by $\mathbf{d}_k$. The regression coefficient $b_{jk}$ is the scalar that tells us how much we need to scale $\mathbf{d}_k$ to get the vector that is "closest" to $\mathbf{d}_j$ in the least squares sense. The vector of predicted values, $\hat{\mathbf{d}}_j = b_{jk}\mathbf{d}_k$, is this projection.
+
+\subsection*{Question 18}
+\textbf{Question:} Consider the projection matrix $P = \frac{1}{n}\mathbf{1}\mathbf{1}^T$, where $\mathbf{1}$ is an $n \times 1$ vector of ones. Show that $P$ is idempotent ($P^2=P$) and symmetric. Interpret the geometric effect of applying $P$ and $(I-P)$ to a data vector $\mathbf{x}$ in the sample space.
+
+\textbf{Solution:}
+\textbf{Symmetry:}
+$$ P^T = \left(\frac{1}{n}\mathbf{1}\mathbf{1}^T\right)^T = \frac{1}{n}(\mathbf{1}^T)^T\mathbf{1}^T = \frac{1}{n}\mathbf{1}\mathbf{1}^T = P $$
+So, $P$ is symmetric.
+
+\textbf{Idempotence:}
+$$ P^2 = \left(\frac{1}{n}\mathbf{1}\mathbf{1}^T\right) \left(\frac{1}{n}\mathbf{1}\mathbf{1}^T\right) = \frac{1}{n^2} \mathbf{1}(\mathbf{1}^T\mathbf{1})\mathbf{1}^T $$
+The term $\mathbf{1}^T\mathbf{1} = \sum_{i=1}^n 1^2 = n$.
+$$ P^2 = \frac{1}{n^2} \mathbf{1}(n)\mathbf{1}^T = \frac{n}{n^2} \mathbf{1}\mathbf{1}^T = \frac{1}{n} \mathbf{1}\mathbf{1}^T = P $$
+So, $P$ is idempotent.
+
+\textbf{Geometric Interpretation:}
+Applying $P$ to a data vector $\mathbf{x} = (x_1, \dots, x_n)^T$:
+$$ P\mathbf{x} = \frac{1}{n}\mathbf{1}\mathbf{1}^T\mathbf{x} = \frac{1}{n}\mathbf{1} \left(\sum_{i=1}^n x_i\right) = \left(\frac{\sum x_i}{n}\right) \mathbf{1} = \bar{x}\mathbf{1} $$
+This operation projects the vector $\mathbf{x}$ onto the vector $\mathbf{1}$. The result is a vector where every component is the mean of $\mathbf{x}$.
+
+The matrix $H = (I-P)$ is the centering matrix. Applying it to $\mathbf{x}$:
+$$ (I-P)\mathbf{x} = \mathbf{x} - P\mathbf{x} = \mathbf{x} - \bar{x}\mathbf{1} $$
+This creates the mean-centered vector $\mathbf{d}_x$. Geometrically, this projects the vector $\mathbf{x}$ onto the subspace orthogonal to the vector $\mathbf{1}$. This subspace contains all vectors whose components sum to zero. $H$ is also a projection matrix (it is symmetric and idempotent).
+
+\subsection*{Question 19}
+\textbf{Question:} From a geometric perspective in the $n$-dimensional sample space, what is the goal of Canonical Correlation Analysis (CCA)? Describe the first canonical correlation in terms of finding vectors in this space.
+
+\textbf{Solution:}
+Canonical Correlation Analysis (CCA) aims to find the linear relationships between two sets of variables. Let the two sets of variables be represented by their mean-centered data vectors in the $n$-dimensional sample space: $\{\mathbf{d}_1, \dots, \mathbf{d}_p\}$ for the first set, and $\{\mathbf{g}_1, \dots, \mathbf{g}_q\}$ for the second set.
+
+Geometrically, CCA seeks to find a pair of vectors, one in the subspace spanned by the first set of variables and one in the subspace spanned by the second set, such that the angle between these two new vectors is minimized. A smaller angle corresponds to a larger cosine, which represents a larger correlation.
+
+Let $\mathbf{u} = c_1\mathbf{d}_1 + \dots + c_p\mathbf{d}_p$ be a vector in the subspace of the first set, and $\mathbf{v} = e_1\mathbf{g}_1 + \dots + e_q\mathbf{g}_q$ be a vector in the subspace of the second set. These are the canonical variates.
+
+The first canonical correlation, $\rho_1^*$, is the maximum possible correlation between such a $\mathbf{u}$ and $\mathbf{v}$. Geometrically, it is the cosine of the minimum possible angle between the two subspaces. The vectors $\mathbf{u}_1$ and $\mathbf{v}_1$ that achieve this maximum correlation are the first pair of canonical variates. Subsequent canonical correlations are found by seeking pairs of vectors that are uncorrelated with (and geometrically, orthogonal to) the previous pairs and that have the next highest correlation.
+
+\subsection*{Question 20}
+\textbf{Question:} The canonical vectors $\mathbf{a}_1$ and $\mathbf{b}_1$ for CCA are found by solving the generalized eigenvalue problem $(S_{12}S_{22}^{-1}S_{21})\mathbf{a} = \lambda S_{11}\mathbf{a}$. Provide a geometric or statistical interpretation of the matrix product $M = S_{12}S_{22}^{-1}S_{21}$.
+
+\textbf{Solution:}
+Let's break down the matrix product $M = S_{12}S_{22}^{-1}S_{21}$. This matrix can be interpreted as the covariance matrix of the predicted values of the first set of variables, when they are predicted from the second set of variables using multivariate multiple regression.
+
+1.  **Multivariate Regression:** Consider regressing the variables in the first set ($X_1$) onto the variables in the second set ($X_2$). The matrix of regression coefficients is given by $B = S_{12}S_{22}^{-1}$. The predicted values of $X_1$ from $X_2$ are $\hat{X}_1 = X_2 B^T = X_2 S_{22}^{-1}S_{21}$. (Note: In many texts, the regression of Y on X has coefficients $(X'X)^{-1}X'Y$. Here we regress X1 on X2, so the coefficients are $(S_{22})^{-1}S_{21}$).
+
+2.  **Covariance of Predicted Values:** The matrix $M$ is the covariance matrix of these predicted values, $\text{Cov}(\hat{X}_1)$.
+    $$ \text{Cov}(\hat{X}_1) = \text{Cov}(X_2 S_{22}^{-1}S_{21}) $$
+    Using the property $\text{Cov}(XA^T) = A \text{Cov}(X) A^T$, with $A = (S_{22}^{-1}S_{21})^T = S_{12}S_{22}^{-1}$:
+    $$ \text{Cov}(\hat{X}_1) = (S_{12}S_{22}^{-1}) \text{Cov}(X_2) (S_{22}^{-1}S_{21}) $$
+    $$ = S_{12}S_{22}^{-1} S_{22} S_{22}^{-1}S_{21} = S_{12}S_{22}^{-1}S_{21} = M $$
+
+Therefore, the matrix $M$ represents the component of the variance in the first set of variables that is explained by the second set of variables. The eigenvalue problem $(S_{12}S_{22}^{-1}S_{21})\mathbf{a} = \lambda S_{11}\mathbf{a}$ can be rewritten as $(S_{11}^{-1/2} S_{12}S_{22}^{-1}S_{21} S_{11}^{-1/2}) \mathbf{a}^* = \lambda \mathbf{a}^*$. This is finding the eigenvectors of the matrix $S_{11}^{-1}M$. This matrix represents the ratio of the explained variance to the total variance in the $X_1$ space. The eigenvectors $\mathbf{a}$ give the directions in the $X_1$ space that maximize this ratio, and the eigenvalues $\lambda$ are the squared canonical correlations, representing the proportion of variance of the canonical variate $U = \mathbf{a}^T X_1$ that is explained by the second set of variables.

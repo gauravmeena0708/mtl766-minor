@@ -134,3 +134,92 @@ Find the correlation between variable 1 and 3.
 We need to find $r_{13}$. We have $s_{13}=4$, $s_{11}=25$, and $s_{33}=9$.
 $$ r_{13} = \frac{s_{13}}{\sqrt{s_{11}s_{33}}} = \frac{4}{\sqrt{25 \cdot 9}} = \frac{4}{\sqrt{225}} = \frac{4}{15} \approx 0.2667 $$
 The correlation between variable 1 and 3 is approximately 0.2667.
+
+\subsection*{Question 16}
+\textbf{Question:} Prove that the sample generalized variance, $|S|$, is zero if and only if the columns of the mean-centered data matrix $X_c$ are linearly dependent.
+
+\textbf{Solution:}
+The sample covariance matrix is given by $S = \frac{1}{n-1} X_c^T X_c$, where $X_c$ is the $n \times p$ mean-centered data matrix.
+The generalized variance is $|S| = |\frac{1}{n-1} X_c^T X_c| = (\frac{1}{n-1})^p |X_c^T X_c|$.
+Thus, $|S| = 0$ if and only if $|X_c^T X_c| = 0$.
+The matrix $X_c^T X_c$ is a $p \times p$ matrix. Its determinant is zero if and only if the matrix is singular.
+A matrix $A$ is singular if and only if there exists a non-zero vector $\mathbf{v}$ such that $A\mathbf{v} = \mathbf{0}$.
+So, $|X_c^T X_c| = 0$ if and only if there exists a non-zero $p \times 1$ vector $\mathbf{a}$ such that $X_c^T X_c \mathbf{a} = \mathbf{0}$.
+Multiplying by $\mathbf{a}^T$ on the left, we get $\mathbf{a}^T X_c^T X_c \mathbf{a} = 0$, which is $\|X_c \mathbf{a}\|^2 = 0$.
+This implies $X_c \mathbf{a} = \mathbf{0}$.
+$X_c \mathbf{a}$ is a linear combination of the columns of $X_c$. If $X_c \mathbf{a} = \mathbf{0}$ for a non-zero $\mathbf{a}$, this is the definition of the columns of $X_c$ being linearly dependent.
+Conversely, if the columns of $X_c$ are linearly dependent, there exists a non-zero $\mathbf{a}$ such that $X_c \mathbf{a} = \mathbf{0}$, which implies $X_c^T X_c \mathbf{a} = \mathbf{0}$, which means $X_c^T X_c$ is singular and its determinant is zero. Therefore, $|S|=0$.
+
+\subsection*{Question 17}
+\textbf{Question:} Prove that the sample covariance matrix $S$ is positive semi-definite. That is, show $\mathbf{a}^T S \mathbf{a} \ge 0$ for any constant vector $\mathbf{a}$. When does strict equality, $\mathbf{a}^T S \mathbf{a} = 0$, hold?
+
+\textbf{Solution:}
+Let $\mathbf{a}$ be any $p \times 1$ constant vector. Consider the quadratic form $\mathbf{a}^T S \mathbf{a}$.
+$$ \mathbf{a}^T S \mathbf{a} = \mathbf{a}^T \left( \frac{1}{n-1} \sum_{i=1}^n (\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T \right) \mathbf{a} $$
+$$ = \frac{1}{n-1} \sum_{i=1}^n \mathbf{a}^T (\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T \mathbf{a} $$
+Let $y_i = (\mathbf{x}_i - \bar{\mathbf{x}})^T \mathbf{a}$, which is a scalar. Then $\mathbf{a}^T (\mathbf{x}_i - \bar{\mathbf{x}})$ is also a scalar, $y_i$. So the expression becomes:
+$$ = \frac{1}{n-1} \sum_{i=1}^n y_i^2 $$
+Since $y_i^2 \ge 0$, the sum is non-negative. Thus, $\mathbf{a}^T S \mathbf{a} \ge 0$, and $S$ is positive semi-definite.
+
+Strict equality, $\mathbf{a}^T S \mathbf{a} = 0$, holds if and only if $\sum y_i^2 = 0$, which means $y_i = 0$ for all $i=1, \dots, n$.
+$y_i = (\mathbf{x}_i - \bar{\mathbf{x}})^T \mathbf{a} = 0$ for all $i$. This means the linear combination of the mean-centered variables, represented by vector $\mathbf{a}$, is zero for all observations. This corresponds to the columns of the mean-centered data matrix $X_c$ being linearly dependent (as shown in Q16), where $\mathbf{a}$ is the vector of coefficients of the linear combination.
+
+\subsection*{Question 18}
+\textbf{Question:} Show that the total sample variance and the sample generalized variance are invariant under a rotation of the data. A rotation is a linear transformation $\mathbf{y}_i = R\mathbf{x}_i$ where $R$ is an orthogonal matrix ($R^T R = I$) with determinant $|R|=1$.
+
+\textbf{Solution:}
+Let the original data be $\mathbf{x}_i$ with sample mean $\bar{\mathbf{x}}$ and sample covariance $S_x$.
+The transformed data is $\mathbf{y}_i = R\mathbf{x}_i$.
+The new sample mean is $\bar{\mathbf{y}} = \frac{1}{n}\sum R\mathbf{x}_i = R(\frac{1}{n}\sum\mathbf{x}_i) = R\bar{\mathbf{x}}$.
+The new sample covariance matrix $S_y$ is:
+$$ S_y = \frac{1}{n-1} \sum (\mathbf{y}_i - \bar{\mathbf{y}})(\mathbf{y}_i - \bar{\mathbf{y}})^T = \frac{1}{n-1} \sum (R\mathbf{x}_i - R\bar{\mathbf{x}})(R\mathbf{x}_i - R\bar{\mathbf{x}})^T $$
+$$ = \frac{1}{n-1} \sum R(\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T R^T = R \left( \frac{1}{n-1} \sum (\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T \right) R^T = R S_x R^T $$
+\textbf{Total Variance:}
+The new total variance is $\text{tr}(S_y) = \text{tr}(R S_x R^T)$. Using the cyclic property of the trace, $\text{tr}(ABC) = \text{tr}(CAB)$:
+$$ \text{tr}(S_y) = \text{tr}(R^T R S_x) = \text{tr}(I S_x) = \text{tr}(S_x) $$
+So the total variance is invariant under rotation.
+
+\textbf{Generalized Variance:}
+The new generalized variance is $|S_y| = |R S_x R^T|$. Using the property $|ABC| = |A||B||C|$:
+$$ |S_y| = |R| |S_x| |R^T| = |R| |S_x| |R| = |R|^2 |S_x| $$
+For a rotation matrix, $|R|=1$, so $|R|^2=1$.
+$$ |S_y| = |S_x| $$
+So the generalized variance is also invariant under rotation.
+
+\subsection*{Question 19}
+\textbf{Question:} Let $S$ be a positive definite sample covariance matrix. It has a unique Cholesky decomposition $S = LL^T$, where $L$ is a lower triangular matrix with positive diagonal elements. Explain how this decomposition can be used to simulate multivariate data that exhibits a specific covariance structure.
+
+\textbf{Solution:}
+The Cholesky decomposition is a powerful tool for simulating multivariate data with a desired correlation structure. The process is as follows:
+1. Start with a vector $\mathbf{z} = (z_1, \dots, z_p)^T$ of $p$ independent standard normal random variables (i.e., $z_j \sim N(0,1)$). The mean of this vector is $E[\mathbf{z}] = \mathbf{0}$ and its covariance matrix is $\text{Cov}(\mathbf{z}) = I$, the identity matrix.
+2. Let the desired covariance structure for the simulated data be given by the matrix $S$, and let the desired mean be $\bar{\mathbf{x}}$.
+3. First, find the Cholesky decomposition of the target covariance matrix, $S = LL^T$.
+4. Transform the vector of independent standard normal variables $\mathbf{z}$ using the lower triangular matrix $L$ and the target mean $\bar{\mathbf{x}}$:
+$$ \mathbf{x} = \bar{\mathbf{x}} + L\mathbf{z} $$
+The resulting vector $\mathbf{x}$ will have the desired properties. Let's check its mean and covariance:
+$$ E[\mathbf{x}] = E[\bar{\mathbf{x}} + L\mathbf{z}] = \bar{\mathbf{x}} + L E[\mathbf{z}] = \bar{\mathbf{x}} + L\mathbf{0} = \bar{\mathbf{x}} $$
+$$ \text{Cov}(\mathbf{x}) = \text{Cov}(\bar{\mathbf{x}} + L\mathbf{z}) = L \text{Cov}(\mathbf{z}) L^T = L I L^T = LL^T = S $$
+This procedure generates a random vector $\mathbf{x}$ from a distribution with the specified sample mean and sample covariance matrix $S$. Repeating this process $n$ times would generate a full dataset. This technique is fundamental in Monte Carlo simulations for risk management, financial modeling, and statistical power analysis.
+
+\subsection*{Question 20}
+\textbf{Question:} The sample correlation matrix $R$ is related to the covariance matrix $S$ by $S = D^{1/2} R D^{1/2}$, where $D$ is the diagonal matrix of sample variances $s_{jj}$. Prove that the generalized variance $|S|$ can be expressed as the product of the individual sample variances and the determinant of the correlation matrix, i.e., $|S| = (\prod_{j=1}^p s_{jj}) |R|$. What does this imply about the relationship between inter-correlation among variables and the generalized variance?
+
+\textbf{Solution:}
+We start with the relationship $S = D^{1/2} R D^{1/2}$.
+Taking the determinant of both sides:
+$$ |S| = |D^{1/2} R D^{1/2}| $$
+Using the property that $|ABC| = |A||B||C|$:
+$$ |S| = |D^{1/2}| |R| |D^{1/2}| = |D^{1/2}|^2 |R| $$
+The matrix $D^{1/2}$ is a diagonal matrix with elements $\sqrt{s_{jj}}$ on the diagonal. The determinant of a diagonal matrix is the product of its diagonal elements.
+$$ |D^{1/2}| = \prod_{j=1}^p \sqrt{s_{jj}} $$
+Therefore, $|D^{1/2}|^2 = \left(\prod_{j=1}^p \sqrt{s_{jj}}\right)^2 = \prod_{j=1}^p s_{jj}$.
+Substituting this back into the equation for $|S|$:
+$$ |S| = \left(\prod_{j=1}^p s_{jj}\right) |R| $$
+This completes the proof.
+
+\textbf{Implication:}
+This result shows that the generalized variance $|S|$ is a combination of the total individual variances (product of $s_{jj}$) and the inter-correlations among the variables (captured by $|R|$).
+The determinant of the correlation matrix, $|R|$, ranges from 0 to 1.
+- If the variables are uncorrelated, $R=I$ and $|R|=1$. In this case, $|S| = \prod s_{jj}$, and the generalized variance is maximized for a given set of individual variances.
+- If the variables are perfectly correlated (linearly dependent), then $|R|=0$, which implies $|S|=0$.
+- As the magnitude of correlation among variables increases, $|R|$ decreases from 1 towards 0, which in turn reduces the generalized variance $|S|$. Therefore, higher inter-correlation leads to a smaller "effective" volume of the data cloud in the feature space, as measured by the generalized variance.
