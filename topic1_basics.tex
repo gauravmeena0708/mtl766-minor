@@ -223,3 +223,34 @@ The determinant of the correlation matrix, $|R|$, ranges from 0 to 1.
 - If the variables are uncorrelated, $R=I$ and $|R|=1$. In this case, $|S| = \prod s_{jj}$, and the generalized variance is maximized for a given set of individual variances.
 - If the variables are perfectly correlated (linearly dependent), then $|R|=0$, which implies $|S|=0$.
 - As the magnitude of correlation among variables increases, $|R|$ decreases from 1 towards 0, which in turn reduces the generalized variance $|S|$. Therefore, higher inter-correlation leads to a smaller "effective" volume of the data cloud in the feature space, as measured by the generalized variance.
+
+\subsection*{Question 21}
+\textbf{Question:} Prove that the sample covariance matrix $\mathbf{S}$ is positive definite if the columns of the mean-corrected data matrix $\mathbf{X}_c = \mathbf{X} - \mathbf{1}\bar{\mathbf{x}}^{T}$ are linearly independent.
+
+\textbf{Solution:}
+The sample covariance matrix is given by $\mathbf{S} = \frac{1}{n-1}\mathbf{X}_c^T \mathbf{X}_c$.
+To show that $\mathbf{S}$ is positive definite, we must show that for any non-zero vector $\mathbf{a} \in \mathbb{R}^p$, the quadratic form $\mathbf{a}^T \mathbf{S} \mathbf{a}$ is strictly positive.
+$$ \mathbf{a}^T \mathbf{S} \mathbf{a} = \mathbf{a}^T \left(\frac{1}{n-1}\mathbf{X}_c^T \mathbf{X}_c\right) \mathbf{a} = \frac{1}{n-1} (\mathbf{X}_c \mathbf{a})^T (\mathbf{X}_c \mathbf{a}) = \frac{1}{n-1} \|\mathbf{X}_c \mathbf{a}\|^2 $$
+The term $\|\mathbf{X}_c \mathbf{a}\|^2$ is the squared Euclidean norm of the vector $\mathbf{y} = \mathbf{X}_c \mathbf{a}$. The norm is zero if and only if the vector is a zero vector.
+So, $\mathbf{a}^T \mathbf{S} \mathbf{a} = 0$ if and only if $\mathbf{X}_c \mathbf{a} = \mathbf{0}$.
+
+The expression $\mathbf{X}_c \mathbf{a}$ is a linear combination of the columns of the mean-corrected matrix $\mathbf{X}_c$.
+The condition that the columns of $\mathbf{X}_c$ are linearly independent means that the only solution to $\mathbf{X}_c \mathbf{a} = \mathbf{0}$ is the trivial solution $\mathbf{a} = \mathbf{0}$.
+Therefore, for any non-zero vector $\mathbf{a}$, we must have $\mathbf{X}_c \mathbf{a} \neq \mathbf{0}$, which implies $\|\mathbf{X}_c \mathbf{a}\|^2 > 0$.
+This means that for any non-zero $\mathbf{a}$, $\mathbf{a}^T \mathbf{S} \mathbf{a} > 0$.
+Thus, $\mathbf{S}$ is positive definite. This condition typically holds as long as the number of observations $n$ is greater than the number of variables $p$.
+
+\subsection*{Question 22}
+\textbf{Question:} Let $S_x$ be the sample covariance matrix for an $n \times p$ data matrix $X$. If we create a new data matrix $Y$ by adding a constant vector $\mathbf{c}$ to every observation row, so $\mathbf{y}_i^T = \mathbf{x}_i^T + \mathbf{c}^T$, what is the sample covariance matrix $S_y$ of the new data? Prove your result.
+
+\textbf{Solution:}
+First, let's find the sample mean of the new data, $\bar{\mathbf{y}}$.
+$$ \bar{\mathbf{y}} = \frac{1}{n} \sum_{i=1}^n \mathbf{y}_i = \frac{1}{n} \sum_{i=1}^n (\mathbf{x}_i + \mathbf{c}) = \left(\frac{1}{n} \sum_{i=1}^n \mathbf{x}_i\right) + \left(\frac{1}{n} \sum_{i=1}^n \mathbf{c}\right) = \bar{\mathbf{x}} + \frac{1}{n}(n\mathbf{c}) = \bar{\mathbf{x}} + \mathbf{c} $$
+Now, let's compute the new sample covariance matrix $S_y$.
+$$ S_y = \frac{1}{n-1} \sum_{i=1}^n (\mathbf{y}_i - \bar{\mathbf{y}})(\mathbf{y}_i - \bar{\mathbf{y}})^T $$
+Substitute the expressions for $\mathbf{y}_i$ and $\bar{\mathbf{y}}$:
+$$ \mathbf{y}_i - \bar{\mathbf{y}} = (\mathbf{x}_i + \mathbf{c}) - (\bar{\mathbf{x}} + \mathbf{c}) = \mathbf{x}_i - \bar{\mathbf{x}} $$
+The deviation from the mean is unchanged by the shift.
+Therefore, the new covariance matrix is:
+$$ S_y = \frac{1}{n-1} \sum_{i=1}^n (\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T = S_x $$
+The sample covariance matrix is invariant to a constant shift in the data. This makes sense, as covariance is a measure of spread, and shifting the data does not change its spread.

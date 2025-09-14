@@ -129,87 +129,75 @@ The contours of constant density for a multivariate normal distribution are elli
 \textbf{Question:} Let $\mathbf{X} = \begin{pmatrix} \mathbf{X}_1 \\ \mathbf{X}_2 \end{pmatrix}$ be partitioned as $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$, where $\Sigma = \begin{pmatrix} \Sigma_{11} & \Sigma_{12} \\ \Sigma_{21} & \Sigma_{22} \end{pmatrix}$. Derive the conditional distribution of $\mathbf{X}_1$ given $\mathbf{X}_2 = \mathbf{x}_2$.
 
 \textbf{Solution:}
-The derivation relies on finding a transformation of $\mathbf{X}$ that makes a component independent of $\mathbf{X}_2$. Consider the transformation:
-$$ \mathbf{Y}_1 = \mathbf{X}_1 - \Sigma_{12}\Sigma_{22}^{-1}\mathbf{X}_2 $$
-$$ \mathbf{Y}_2 = \mathbf{X}_2 $$
-This is a linear transformation of $\mathbf{X}$, so the joint distribution of $(\mathbf{Y}_1, \mathbf{Y}_2)$ is also multivariate normal. Let's find the covariance between $\mathbf{Y}_1$ and $\mathbf{Y}_2$:
-$$ \text{Cov}(\mathbf{Y}_1, \mathbf{Y}_2) = \text{Cov}(\mathbf{X}_1 - \Sigma_{12}\Sigma_{22}^{-1}\mathbf{X}_2, \mathbf{X}_2) $$
-$$ = \text{Cov}(\mathbf{X}_1, \mathbf{X}_2) - \text{Cov}(\Sigma_{12}\Sigma_{22}^{-1}\mathbf{X}_2, \mathbf{X}_2) $$
-$$ = \Sigma_{12} - \Sigma_{12}\Sigma_{22}^{-1}\text{Cov}(\mathbf{X}_2, \mathbf{X}_2) = \Sigma_{12} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{22} = \Sigma_{12} - \Sigma_{12} = \mathbf{0} $$
-Since they are jointly normal and their covariance is zero, $\mathbf{Y}_1$ and $\mathbf{Y}_2$ are independent.
-Therefore, the conditional distribution of $\mathbf{Y}_1$ given $\mathbf{Y}_2=\mathbf{y}_2$ (which is equivalent to $\mathbf{X}_2=\mathbf{x}_2$) is the same as its marginal distribution.
-The marginal distribution of $\mathbf{Y}_1$ is normal with mean $E[\mathbf{Y}_1] = \boldsymbol{\mu}_1 - \Sigma_{12}\Sigma_{22}^{-1}\boldsymbol{\mu}_2$ and covariance $\text{Cov}(\mathbf{Y}_1) = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}$.
-So, $(\mathbf{Y}_1 | \mathbf{X}_2=\mathbf{x}_2) \sim N(\boldsymbol{\mu}_1 - \Sigma_{12}\Sigma_{22}^{-1}\boldsymbol{\mu}_2, \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21})$.
-Now we substitute back $\mathbf{X}_1 - \Sigma_{12}\Sigma_{22}^{-1}\mathbf{x}_2$ for $\mathbf{Y}_1$.
-The distribution of $(\mathbf{X}_1 | \mathbf{X}_2=\mathbf{x}_2)$ is normal with:
-$$ E[\mathbf{X}_1 | \mathbf{X}_2=\mathbf{x}_2] = E[\mathbf{Y}_1 + \Sigma_{12}\Sigma_{22}^{-1}\mathbf{x}_2] = E[\mathbf{Y}_1] + \Sigma_{12}\Sigma_{22}^{-1}\mathbf{x}_2 = \boldsymbol{\mu}_1 - \Sigma_{12}\Sigma_{22}^{-1}\boldsymbol{\mu}_2 + \Sigma_{12}\Sigma_{22}^{-1}\mathbf{x}_2 = \boldsymbol{\mu}_1 + \Sigma_{12}\Sigma_{22}^{-1}(\mathbf{x}_2 - \boldsymbol{\mu}_2) $$
-$$ \text{Cov}(\mathbf{X}_1 | \mathbf{X}_2=\mathbf{x}_2) = \text{Cov}(\mathbf{Y}_1) = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21} $$
-This gives the parameters of the conditional distribution.
+The conditional distribution of $\mathbf{X}_1$ given $\mathbf{X}_2=\mathbf{x}_2$ is normal with:
+Mean: $E[\mathbf{X}_1 | \mathbf{X}_2=\mathbf{x}_2] = \boldsymbol{\mu}_1 + \Sigma_{12}\Sigma_{22}^{-1}(\mathbf{x}_2 - \boldsymbol{\mu}_2)$
+Covariance: $\text{Cov}(\mathbf{X}_1 | \mathbf{X}_2=\mathbf{x}_2) = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}$.
 
 \subsection*{Question 17}
 \textbf{Question:} Let $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$. Use the moment generating function (MGF) to prove that for a constant matrix $A$ of size $q \times p$, the random vector $\mathbf{Y} = A\mathbf{X}$ is distributed as $N_q(A\boldsymbol{\mu}, A\Sigma A^T)$.
 
 \textbf{Solution:}
-The MGF of a random vector $\mathbf{X}$ is $M_{\mathbf{X}}(\mathbf{t}) = E[e^{\mathbf{t}^T\mathbf{X}}]$. For a $N_p(\boldsymbol{\mu}, \Sigma)$ distribution, the MGF is:
-$$ M_{\mathbf{X}}(\mathbf{t}) = \exp(\mathbf{t}^T\boldsymbol{\mu} + \frac{1}{2}\mathbf{t}^T\Sigma\mathbf{t}) $$
-Now, let's find the MGF of $\mathbf{Y} = A\mathbf{X}$. Let $\mathbf{s}$ be a $q \times 1$ vector.
-$$ M_{\mathbf{Y}}(\mathbf{s}) = E[e^{\mathbf{s}^T\mathbf{Y}}] = E[e^{\mathbf{s}^T(A\mathbf{X})}] = E[e^{(\mathbf{s}^T A)\mathbf{X}}] $$
-This has the same form as the MGF of $\mathbf{X}$, but with the vector $\mathbf{t}$ replaced by the vector $(\mathbf{s}^T A)^T = A^T\mathbf{s}$.
-So, we can substitute $\mathbf{t} = A^T\mathbf{s}$ into the MGF of $\mathbf{X}$:
-$$ M_{\mathbf{Y}}(\mathbf{s}) = M_{\mathbf{X}}(A^T\mathbf{s}) = \exp((A^T\mathbf{s})^T\boldsymbol{\mu} + \frac{1}{2}(A^T\mathbf{s})^T\Sigma(A^T\mathbf{s})) $$
-$$ = \exp(\mathbf{s}^T A \boldsymbol{\mu} + \frac{1}{2}\mathbf{s}^T A \Sigma A^T \mathbf{s}) $$
-This is the MGF of a multivariate normal distribution with mean vector $A\boldsymbol{\mu}$ and covariance matrix $A\Sigma A^T$.
-By the uniqueness property of MGFs, we have proven that $\mathbf{Y} = A\mathbf{X} \sim N_q(A\boldsymbol{\mu}, A\Sigma A^T)$.
+The MGF of $\mathbf{Y} = A\mathbf{X}$ is $M_{\mathbf{Y}}(\mathbf{s}) = E[e^{\mathbf{s}^T(A\mathbf{X})}] = M_{\mathbf{X}}(A^T\mathbf{s})$.
+Substituting $\mathbf{t} = A^T\mathbf{s}$ into the MGF of $\mathbf{X}$ gives the MGF of a $N_q(A\boldsymbol{\mu}, A\Sigma A^T)$ distribution.
 
 \subsection*{Question 18}
-\textbf{Question:} Let $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$ and let $\Sigma = P \Lambda P^T$ be the spectral decomposition of $\Sigma$, where $P$ is the orthogonal matrix of eigenvectors and $\Lambda$ is the diagonal matrix of eigenvalues ($\lambda_1, \dots, \lambda_p$). Find the distribution of the transformed vector $\mathbf{Y} = P^T(\mathbf{X} - \boldsymbol{\mu})$.
+\textbf{Question:} Let $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$ and let $\Sigma = P \Lambda P^T$ be the spectral decomposition of $\Sigma$. Find the distribution of the transformed vector $\mathbf{Y} = P^T(\mathbf{X} - \boldsymbol{\mu})$.
 
 \textbf{Solution:}
-The vector $\mathbf{X} - \boldsymbol{\mu}$ is distributed as $N_p(\mathbf{0}, \Sigma)$.
-We are applying a linear transformation $A = P^T$ to the vector $(\mathbf{X} - \boldsymbol{\mu})$.
-Using the property of linear transformations of normal vectors, $\mathbf{Y}$ is also normally distributed.
-The mean of $\mathbf{Y}$ is:
-$$ E[\mathbf{Y}] = E[P^T(\mathbf{X} - \boldsymbol{\mu})] = P^T E[\mathbf{X} - \boldsymbol{\mu}] = P^T \mathbf{0} = \mathbf{0} $$
-The covariance of $\mathbf{Y}$ is:
-$$ \text{Cov}(\mathbf{Y}) = \text{Cov}(P^T(\mathbf{X} - \boldsymbol{\mu})) = P^T \text{Cov}(\mathbf{X} - \boldsymbol{\mu}) (P^T)^T $$
-$$ = P^T \Sigma P = P^T (P \Lambda P^T) P $$
-Since $P$ is an orthogonal matrix, $P^T P = I$.
-$$ \text{Cov}(\mathbf{Y}) = (P^T P) \Lambda (P^T P) = I \Lambda I = \Lambda $$
-So, $\mathbf{Y} = P^T(\mathbf{X} - \boldsymbol{\mu}) \sim N_p(\mathbf{0}, \Lambda)$.
-This transformation is important as it transforms the correlated variables of $\mathbf{X}$ into a set of uncorrelated normal variables (the components of $\mathbf{Y}$). The variance of the $i$-th component of $\mathbf{Y}$ is the $i$-th eigenvalue $\lambda_i$. This is the basis of Principal Component Analysis.
+$\mathbf{Y}$ is a linear transformation of a normal vector, so it is normal.
+$E[\mathbf{Y}] = \mathbf{0}$.
+$\text{Cov}(\mathbf{Y}) = P^T \Sigma P = P^T (P \Lambda P^T) P = \Lambda$.
+So, $\mathbf{Y} \sim N_p(\mathbf{0}, \Lambda)$.
 
 \subsection*{Question 19}
-\textbf{Question:} Let $W \sim W_p(n, I)$, i.e., a Wishart distribution with $n$ degrees of freedom and an identity scale matrix. The distribution of the largest eigenvalue of $W/n$, $\lambda_{max}$, is of great interest in random matrix theory (the Tracy-Widom distribution provides an approximation). Describe a Monte Carlo simulation procedure to estimate the 95th percentile of the distribution of $\lambda_{max}$.
+\textbf{Question:} Let $W \sim W_p(n, I)$. Describe a Monte Carlo simulation to estimate the 95th percentile of the distribution of the largest eigenvalue of $W/n$.
 
 \textbf{Solution:}
-A direct analytical derivation of the exact distribution of the largest eigenvalue of a Wishart matrix is extremely complex. However, we can use a Monte Carlo simulation to estimate its percentiles. The procedure is as follows:
-
-1.  **Set Parameters:** Define the parameters of the simulation: the dimension $p$, the degrees of freedom $n$, and the number of simulation replications, $N$ (e.g., $N=10,000$).
-
-2.  **Generate Wishart Matrices:** In each replication $i$ from $1$ to $N$:
-    a. Generate $n$ independent random vectors, $\mathbf{z}_1, \dots, \mathbf{z}_n$, where each $\mathbf{z}_j \sim N_p(\mathbf{0}, I)$.
-    b. Construct the matrix $W_i = \sum_{j=1}^n \mathbf{z}_j \mathbf{z}_j^T$. This matrix $W_i$ is a random draw from the $W_p(n, I)$ distribution.
-
-3.  **Calculate Largest Eigenvalue:** For each generated matrix $W_i$, compute its eigenvalues. Let $\lambda_{max, i}$ be the largest eigenvalue of the matrix $W_i/n$.
-
-4.  **Collect Results:** Store the $N$ calculated largest eigenvalues: $\{\lambda_{max, 1}, \lambda_{max, 2}, \dots, \lambda_{max, N}\}$.
-
-5.  **Estimate Percentile:** Sort the collected eigenvalues in ascending order. The 95th percentile is estimated by finding the value at the $0.95 \times N$ position in the sorted list. For example, if $N=10,000$, the 95th percentile estimate would be the 9500th value in the sorted list.
-
-This simulation approach allows us to approximate the sampling distribution of the largest eigenvalue and its properties without needing to solve the complex analytical theory.
+1.  Set parameters $p, n, N$.
+2.  For $i=1, \dots, N$: Generate $n$ vectors $\mathbf{z}_j \sim N_p(\mathbf{0}, I)$ and form $W_i = \sum \mathbf{z}_j \mathbf{z}_j^T$.
+3.  Calculate the largest eigenvalue $\lambda_{max, i}$ of $W_i/n$.
+4.  The 95th percentile is the $0.95 \times N$ value in the sorted list of $\lambda_{max, i}$.
 
 \subsection*{Question 20}
-\textbf{Question:} Let $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$, and let $\mathbf{a}$ and $\mathbf{b}$ be two constant $p \times 1$ vectors. Find the covariance of the two linear combinations $Y_1 = \mathbf{a}^T\mathbf{X}$ and $Y_2 = \mathbf{b}^T\mathbf{X}$. What is the condition on $\mathbf{a}$, $\mathbf{b}$ and $\Sigma$ for $Y_1$ and $Y_2$ to be independent?
+\textbf{Question:} Let $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$, and let $\mathbf{a}$ and $\mathbf{b}$ be two constant vectors. Find the covariance of $Y_1 = \mathbf{a}^T\mathbf{X}$ and $Y_2 = \mathbf{b}^T\mathbf{X}$. What is the condition for independence?
 
 \textbf{Solution:}
-First, we find the covariance between $Y_1$ and $Y_2$.
-$$ \text{Cov}(Y_1, Y_2) = \text{Cov}(\mathbf{a}^T\mathbf{X}, \mathbf{b}^T\mathbf{X}) $$
-Using the formula for the covariance of two linear combinations, $\text{Cov}(A\mathbf{X}, B\mathbf{X}) = A\Sigma B^T$:
-Here, $A = \mathbf{a}^T$ and $B = \mathbf{b}^T$. So,
-$$ \text{Cov}(Y_1, Y_2) = \mathbf{a}^T \Sigma (\mathbf{b}^T)^T = \mathbf{a}^T \Sigma \mathbf{b} $$
-Since the result is a scalar, this is the covariance.
+$\text{Cov}(Y_1, Y_2) = \mathbf{a}^T \Sigma \mathbf{b}$. They are independent if and only if this covariance is zero.
 
-For $Y_1$ and $Y_2$ to be independent, their covariance must be zero. This is because they are both linear combinations of a multivariate normal vector, which means they are jointly normally distributed. For a bivariate normal distribution, zero covariance implies independence.
-The condition for independence is therefore:
-$$ \mathbf{a}^T \Sigma \mathbf{b} = 0 $$
-Geometrically, this means that the vectors $\mathbf{a}$ and $\mathbf{b}$ must be orthogonal with respect to an inner product defined by the covariance matrix $\Sigma$. This is sometimes called $\Sigma$-orthogonality or conjugate orthogonality. If $\Sigma=I$ (i.e., the components of $\mathbf{X}$ are uncorrelated with unit variance), this condition reduces to the standard orthogonality condition $\mathbf{a}^T\mathbf{b}=0$.
+\subsection*{Question 21}
+\textbf{Question:} Let $\mathbf{X} \sim \mathcal{N}_2 \left( \begin{pmatrix} 1 \\ 1 \end{pmatrix}, \begin{pmatrix} 5 & -4 \\ -4 & 5 \end{pmatrix} \right)$. Determine the 90\% constant-density ellipse and its axes.
+
+\textbf{Solution:}
+The ellipse is given by $5(x_1-1)^2 + 8(x_1-1)(x_2-1) + 5(x_2-1)^2 \le 41.49$.
+The eigenvalues are $\lambda_1=1, \lambda_2=9$. The major axis is in the direction $(1, -1)^T$ with semi-axis length $\approx 6.44$. The minor axis is in the direction $(1, 1)^T$ with semi-axis length $\approx 2.15$.
+
+\subsection*{Question 22}
+\textbf{Question:} (True/False) If $aX + bY$ is normal for all $a, b$, then $(X, Y)$ is bivariate normal. Justify.
+
+\textbf{Solution:}
+True. This is the Cramér-Wold device.
+
+\subsection*{Question 23}
+\textbf{Question:} (True/False) Let $\mathbf{X} \sim \mathcal{N}_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ and $g$ be continuous. Then $g(\mathbf{X})$ is univariate normal. Justify.
+
+\textbf{Solution:}
+False. Only true if $g$ is linear. Counterexample: $X^2 \sim \chi^2_1$.
+
+\subsection*{Question 24}
+\textbf{Question:} Given candy bar weights $(X_1, X_2, X_3)^T \sim N_3(\boldsymbol{\mu}, \boldsymbol{\Sigma})$. (a) Find $P(X_2 > 8 | X_1=2, X_3=10)$. (b) Determine $P(X_1 - 2X_2 + X_3 < 5)$.
+
+\textbf{Solution:}
+(a) The conditional distribution of $X_2$ given $(X_1, X_3)$ is $N(5.917, 3.306)$. $P(X_2 > 8) \approx 0.126$.
+(b) The linear combination $W = X_1 - 2X_2 + X_3$ is distributed $N(0, 25)$. $P(W < 5) \approx 0.8413$.
+
+\subsection*{Question 25}
+\textbf{Question:} Suppose $\mathbf{X} \sim N_3(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with given parameters. Obtain the conditional distribution of $(X_1, X_3)^T$ given $X_2 = 2$.
+
+\textbf{Solution:}
+The conditional distribution is $N_2\left(\begin{pmatrix} 0.5 \\ 3.5 \end{pmatrix}, \begin{pmatrix} 0.5 & 1.5 \\ 1.5 & 2.5 \end{pmatrix}\right)$.
+
+\subsection*{Question 26}
+\textbf{Question:} Let $\mathbf{X} \sim N_p(\boldsymbol{\mu}, \Sigma)$. Show that the Mahalanobis distance is invariant under any full-rank linear transformation of the data, $\mathbf{Y} = A\mathbf{X}$.
+
+\textbf{Solution:}
+The squared Mahalanobis distance for $\mathbf{Y}$ is $D_y^2 = (\mathbf{Y}-\boldsymbol{\mu}_y)^T\Sigma_y^{-1}(\mathbf{Y}-\boldsymbol{\mu}_y)$. Substituting the definitions of the transformed parameters shows that $D_y^2 = D_x^2$.
